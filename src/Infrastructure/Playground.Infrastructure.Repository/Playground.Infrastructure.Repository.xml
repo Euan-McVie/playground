@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Playground.Infrastructure.Repository</name>
+    </assembly>
+    <members>
+        <member name="T:Playground.Infrastructure.Repository.Extensions.RepositoryExtensions">
+            <summary>
+            Extension methods to manage <see cref="T:Playground.Infrastructure.Repository.Interfaces.IRepository"/> implementations.
+            </summary>
+        </member>
+        <member name="M:Playground.Infrastructure.Repository.Extensions.RepositoryExtensions.AddRepository``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Add the provided <typeparamref name="TRepository"/> to the <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>
+            bound to the <see cref="T:Playground.Infrastructure.Repository.Interfaces.IRepository"/> interface.
+            </summary>
+            <typeparam name="TRepository">The type of repository to add.</typeparam>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the repository to.</param>
+            <returns>The updated <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</returns>
+        </member>
+        <member name="T:Playground.Infrastructure.Repository.InMemory.InMemoryDictionaryRepository">
+            <summary>
+            A simple in memory implementation of an <see cref="T:Playground.Infrastructure.Repository.Interfaces.IRepository"/> using <see cref="T:System.Collections.Concurrent.ConcurrentDictionary`2"/> as the data store.
+            </summary>
+        </member>
+        <member name="M:Playground.Infrastructure.Repository.InMemory.InMemoryDictionaryRepository.ExecuteLinq``1(System.Func{System.Linq.IQueryable{``0},System.Linq.IQueryable{``0}})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Playground.Infrastructure.Repository.InMemory.InMemoryDictionaryRepository.TryCreate``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Int32}})">
+            <inheritdoc/>
+        </member>
+        <member name="T:Playground.Infrastructure.Repository.Interfaces.IRepository">
+            <summary>
+            Repository contract for communicating with a persistance store.
+            </summary>
+        </member>
+        <member name="M:Playground.Infrastructure.Repository.Interfaces.IRepository.ExecuteLinq``1(System.Func{System.Linq.IQueryable{``0},System.Linq.IQueryable{``0}})">
+            <summary>
+            Expose an <see cref="T:System.Linq.IQueryable`1"/> of <typeparamref name="TRecord"/> that allows constructing a linq query against the provided <typeparamref name="TRecord"/>.
+            </summary>
+            <typeparam name="TRecord">The type of record to query against.</typeparam>
+            <param name="query">A <see cref="T:System.Func`2"/> that provides an initial <see cref="T:System.Linq.IQueryable`1"/> of <typeparamref name="TRecord"/> to build a linq query against.
+            The updated <see cref="T:System.Linq.IQueryable`1"/> of <typeparamref name="TRecord"/> should then be returned.</param>
+            <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1"/> of <typeparamref name="TRecord"/> containing any results.</returns>
+        </member>
+        <member name="M:Playground.Infrastructure.Repository.Interfaces.IRepository.TryCreate``1(``0,System.Linq.Expressions.Expression{System.Func{``0,System.Int32}})">
+            <summary>
+            Tries to create the <paramref name="record"/> on the persistance store.
+            </summary>
+            <typeparam name="TRecord">The type of the record to create. It must implement <see cref="T:System.IEquatable`1"/> which should return if two instances are equal to each other.</typeparam>
+            <param name="record">The record to try and create. It must have an <see cref="T:System.Int32"/> id field.</param>
+            <param name="idSelector">A selector <see cref="T:System.Linq.Expressions.Expression`1"/> that returns the <see cref="T:System.Int32"/> field that holds the id for the <typeparamref name="TRecord"/></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
