@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Playground.Infrastructure.Extensions.Akka</name>
+    </assembly>
+    <members>
+        <member name="T:Playground.Infrastructure.Extensions.Akka.AkkaExtensions">
+            <summary>
+            Extension methods to aid interop with Akka.Net
+            </summary>
+        </member>
+        <member name="M:Playground.Infrastructure.Extensions.Akka.AkkaExtensions.AddAkka(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,System.Action{Playground.Infrastructure.Extensions.Akka.IAkkaActorBuilder})">
+            <summary>
+            Add and initialise an Akka.Net <see cref="T:Akka.Actor.ActorSystem"/> to the <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+            </summary>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add Akka.Net services to.</param>
+            <param name="systemActorName">The name of the actor system to create.</param>
+            <param name="akkaActorBuilder">An <see cref="T:System.Action`1"/> to further configure the provided <see cref="T:Playground.Infrastructure.Extensions.Akka.IAkkaActorBuilder"/>.</param>
+            <returns>The updated <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</returns>
+        </member>
+        <member name="M:Playground.Infrastructure.Extensions.Akka.AkkaExtensions.UseAkka(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Adds and registers the Akka.Net <see cref="T:Akka.Actor.ActorSystem"/> to be started and stopped by the <see cref="T:Microsoft.Extensions.Hosting.IHostApplicationLifetime"/>.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> to add the middleware to.</param>
+            <returns>A reference to this instance after the operation has completed.</returns>
+        </member>
+        <member name="T:Playground.Infrastructure.Extensions.Akka.ActorProvider`1">
+            <summary>
+            Provider method to return a <see cref="T:Akka.Actor.IActorRef"/> to an instance of the requested <typeparamref name="TActor"/> actor.
+            </summary>
+            <typeparam name="TActor">The actor type to return an <see cref="T:Akka.Actor.IActorRef"/> to an instance of.</typeparam>
+            <returns>The <see cref="T:Akka.Actor.IActorRef"/> actor reference.</returns>
+        </member>
+        <member name="T:Playground.Infrastructure.Extensions.Akka.IAkkaActorBuilder">
+            <summary>
+            Defines a contract for a Akka.Net actor builder in an application.
+            An Akka.Net actor builder provides programmatic configuration for adding Akka.Net actors to the <see cref="T:Akka.Actor.ActorSystem"/>
+            and enables retrival of their <see cref="T:Akka.Actor.IActorRef"/> from the <see cref="T:System.IServiceProvider"/> via their <see cref="T:Playground.Infrastructure.Extensions.Akka.ActorProvider`1"/>
+            </summary>
+        </member>
+        <member name="M:Playground.Infrastructure.Extensions.Akka.IAkkaActorBuilder.AddActor``1">
+            <summary>
+            Adds a C# style actor that can be retrieved from the <see cref="T:System.IServiceProvider"/> via their <see cref="T:Playground.Infrastructure.Extensions.Akka.ActorProvider`1"/>
+            </summary>
+            <typeparam name="TActor">The type of C# actor to create.</typeparam>
+            <returns>The <see cref="T:Playground.Infrastructure.Extensions.Akka.IAkkaActorBuilder"/> to continue configuring further actors on.</returns>
+        </member>
+        <member name="M:Playground.Infrastructure.Extensions.Akka.IAkkaActorBuilder.AddFSharpActor``1(System.Func{Akka.Actor.IActorRefFactory,Akka.Actor.IActorRef})">
+            <summary>
+            Adds a F# style actor that can be retrieved from the <see cref="T:System.IServiceProvider"/> via their <see cref="T:Playground.Infrastructure.Extensions.Akka.ActorProvider`1"/>
+            </summary>
+            <typeparam name="TActor">The type of F# actor to create.</typeparam>
+            <param name="createActorFunc">The F# function that creates the actor.</param>
+            <returns>The <see cref="T:Playground.Infrastructure.Extensions.Akka.IAkkaActorBuilder"/> to continue configuring further actors on.</returns>
+            <example>
+            The F# creation function is expected to spawn the the actor as a child of the <see cref="T:Akka.Actor.IActorRefFactory"/> parent actor
+            that will be provided to it.
+            <code>
+            module MyActor =
+                let private myActor (mailbox: Actor&lt;obj&gt;) =
+                    ...
+            
+                let CreateActor parentActor = 
+                    spawn parentActor
+                    &lt;| "MyActorName"
+                    &lt;| myActor
+            </code>
+            </example>
+        </member>
+        <member name="M:Playground.Infrastructure.Extensions.Akka.IAkkaActorBuilder.AddFSharpActor``1(System.Func{Akka.Actor.IActorRefFactory,System.IServiceProvider,Akka.Actor.IActorRef})">
+            <summary>
+            Adds a F# style actor that can be retrieved from the <see cref="T:System.IServiceProvider"/> via their <see cref="T:Playground.Infrastructure.Extensions.Akka.ActorProvider`1"/>
+            </summary>
+            <typeparam name="TActor">The type of F# actor to create.</typeparam>
+            <param name="createActorFunc">The F# function that creates the actor.</param>
+            <returns>The <see cref="T:Playground.Infrastructure.Extensions.Akka.IAkkaActorBuilder"/> to continue configuring further actors on.</returns>
+            <example>
+            The F# creation function is expected to spawn the the actor as a child of the <see cref="T:Akka.Actor.IActorRefFactory"/> parent actor
+            that will be provided to it.
+            <code>
+            module MyActor =
+                let private myActor serviceProvider (mailbox: Actor&lt;obj&gt;) =
+                    ...
+            
+                let CreateActor parentActor serviceProvider = 
+                    spawn parentActor
+                    &lt;| "MyActorName"
+                    &lt;| myActor serviceProvider
+            </code>
+            </example>
+        </member>
+    </members>
+</doc>
