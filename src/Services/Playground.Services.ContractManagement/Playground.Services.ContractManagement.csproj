@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <PropertyGroup>
+      <DocumentationFile>C:\Development\playground\src\Services\Playground.Services.ContractManagement\Playground.Services.ContractManagement.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Akka" Version="1.4.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+        <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Infrastructure\Playground.Infrastructure.Extensions.Akka\Playground.Infrastructure.Extensions.Akka.csproj" />
+      <ProjectReference Include="..\..\Infrastructure\Playground.Infrastructure.Extensions.ServiceDiscovery\Playground.Infrastructure.Extensions.ServiceDiscovery.csproj" />
+      <ProjectReference Include="..\..\Infrastructure\Playground.Intrastructure.Extensions.FSharp\Playground.Intrastructure.Extensions.FSharp.csproj" />
+      <ProjectReference Include="..\..\Playground.Domain\Playground.Domain.csproj" />
+      <ProjectReference Include="..\Playground.Services.ContractManagement.Actors\Playground.Services.ContractManagement.Actors.fsproj" />
+    </ItemGroup>
+</Project>

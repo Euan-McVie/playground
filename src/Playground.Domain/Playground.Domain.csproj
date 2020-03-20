@@ -13,7 +13,7 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="System.ServiceModel.Primitives" Version="4.7.0" />
+        <PackageReference Include="protobuf-net.Grpc" Version="1.0.36" />
     </ItemGroup>
     
     <ItemGroup>

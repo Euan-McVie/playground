@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Playground.Services.ContractManagement</name>
+    </assembly>
+    <members>
+        <member name="T:Playground.Services.ContractManagement.ContractManagerController">
+            <summary>
+            Controller to manage contracts.
+            </summary>
+        </member>
+        <member name="M:Playground.Services.ContractManagement.ContractManagerController.#ctor(Playground.Domain.Services.IContractManager)">
+            <summary>
+            Construct the .Net API Controller for managing contracts.
+            </summary>
+            <param name="contractManager">The contract manager service.</param>
+        </member>
+        <member name="M:Playground.Services.ContractManagement.ContractManagerController.GetContract(System.Int32)">
+            <summary>
+            Gets a contract with the provided <paramref name="id"/>.
+            </summary>
+            <param name="id">The id of the contract to retrieve.</param>
+            <returns>The contract with the provided id.</returns>
+            <response code="200">OK with the <see cref="T:Playground.Domain.Models.ContractDTO"/> contract.</response>
+            <response code="404">Contract not found with a <see cref="T:System.String"/> error message.</response>
+        </member>
+        <member name="T:Playground.Services.ContractManagement.ContractManagerService">
+            <summary>
+            Service implementation for contract management.
+            </summary>
+        </member>
+        <member name="M:Playground.Services.ContractManagement.ContractManagerService.#ctor(Playground.Infrastructure.Extensions.Akka.ActorProvider{Playground.Services.ContractManagement.ContractManagerService})">
+            <summary>
+            Constructor for the contract manager Grpc service.
+            </summary>
+            <param name="contractManagerActorProvider">The provider that returns the contract manager actor. This should normally be injected via DI to ensure a single instance.</param>
+        </member>
+        <member name="M:Playground.Services.ContractManagement.ContractManagerService.CreateContractAsync(Playground.Domain.Models.ContractDetailsDTO)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Playground.Services.ContractManagement.ContractManagerService.GetContractAsync(System.Int32)">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

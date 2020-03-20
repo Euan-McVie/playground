@@ -4,9 +4,9 @@ using Microsoft.FSharp.Core;
 namespace Playground.Intrastructure.Extensions.FSharp
 {
     /// <summary>
-    /// Extension methods to aid interop with F# types.
+    /// Extension methods to aid interop with an F# <see cref="FSharpResult{T, TError}"/>.
     /// </summary>
-    public static class FSharpExtensions
+    public static class FSharpResultExtensions
     {
         /// <summary>
         /// Converts a compile-time unknown <see cref="FSharpResult{T, TError}"/> into an <c>FSharpResult&lt;TResult, string&gt;</c>.

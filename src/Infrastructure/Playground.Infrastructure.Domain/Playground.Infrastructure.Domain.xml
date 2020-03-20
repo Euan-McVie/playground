@@ -23,6 +23,14 @@
             If the <c>IsError</c> flag is false then the error data will be the default for <typeparamref name="TError"/>.
             </summary>
         </member>
+        <member name="M:Playground.Infrastructure.Domain.Models.ResultDTO`2.Deconstruct(System.Boolean@,`0@,`1@)">
+            <summary>
+            Allows deconstruction of the <see cref="T:Playground.Infrastructure.Domain.Models.ResultDTO`2"/> to enable pattern matching.
+            </summary>
+            <param name="IsSuccessful"></param>
+            <param name="SuccessData"></param>
+            <param name="ErrorData"></param>
+        </member>
         <member name="T:Playground.Infrastructure.Domain.Models.ResultDTO">
             <summary>
             Factory methods to create instances of a <see cref="T:Playground.Infrastructure.Domain.Models.ResultDTO`2"/>.
@@ -30,7 +38,7 @@
         </member>
         <member name="M:Playground.Infrastructure.Domain.Models.ResultDTO.NewSuccessResult``2(``0)">
             <summary>
-            Creates a new success result of <see cref="T:Playground.Infrastructure.Domain.Models.ResultDTO`2"/> containing the provided <typeparamref name="TSuccess"/> data.
+            Creates a new success result of <see cref="T:Playground.Infrastructure.Domain.Models.ResultDTO`2"/> containing the provided <typeparamref name="TSuccess"/> success data.
             </summary>
             <typeparam name="TSuccess">The type of the success data.</typeparam>
             <typeparam name="TError">the type of the error data.</typeparam>
@@ -39,7 +47,7 @@
         </member>
         <member name="M:Playground.Infrastructure.Domain.Models.ResultDTO.NewSuccessResult``1(``0)">
             <summary>
-            Creates a new success result of <see cref="T:Playground.Infrastructure.Domain.Models.ResultDTO`2"/> containing the provided <typeparamref name="TSuccess"/> data
+            Creates a new success result of <see cref="T:Playground.Infrastructure.Domain.Models.ResultDTO`2"/> containing the provided <typeparamref name="TSuccess"/> success data
             and with a <c>TError</c> of type <see cref="T:System.String"/>.
             </summary>
             <typeparam name="TSuccess">The type of the success data.</typeparam>
@@ -48,12 +56,20 @@
         </member>
         <member name="M:Playground.Infrastructure.Domain.Models.ResultDTO.NewErrorResult``2(``1)">
             <summary>
-            Creates a new error result of <see cref="T:Playground.Infrastructure.Domain.Models.ResultDTO`2"/> containing the provided <typeparamref name="TError"/> data.
+            Creates a new error result of <see cref="T:Playground.Infrastructure.Domain.Models.ResultDTO`2"/> containing the provided <typeparamref name="TError"/> error data.
             </summary>
             <typeparam name="TSuccess">The type of the success data.</typeparam>
             <typeparam name="TError">the type of the error data.</typeparam>
             <param name="errorData">The <typeparamref name="TError"/> error data.</param>
             <returns>A new error result of <see cref="T:Playground.Infrastructure.Domain.Models.ResultDTO`2"/>.</returns>
+        </member>
+        <member name="M:Playground.Infrastructure.Domain.Models.ResultDTO.NewErrorResult``1(System.String)">
+            <summary>
+            Creates a new error result of <see cref="T:Playground.Infrastructure.Domain.Models.ResultDTO`2"/> containing the provided <see cref="T:System.String"/> error message.
+            </summary>
+            <typeparam name="TSuccess">The type of the success data.</typeparam>
+            <param name="errorData">The <see cref="T:System.String"/> error message.</param>
+            <returns>A new error result of <see cref="T:Playground.Infrastructure.Domain.Models.ResultDTO`2"/> with a <c>TError</c> of type <see cref="T:System.String"/>.</returns>
         </member>
     </members>
 </doc>
