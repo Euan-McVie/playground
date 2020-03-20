@@ -1,4 +1,4 @@
-﻿namespace Playground.Infrastructure.Services.ServiceDiscovery.Attributes
+﻿namespace Playground.Infrastructure.Extensions.ServiceDiscovery.Attributes
 {
     /// <summary>
     /// This attribute is used to register the decorated gRPC service with the remote service discovery mechanism.

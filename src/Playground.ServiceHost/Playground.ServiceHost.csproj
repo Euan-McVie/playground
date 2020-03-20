@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UserSecretsId>f4cb64f6-d67d-4c47-a2ed-9b464c2fc680</UserSecretsId>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DocumentationFile>C:\Development\playground\src\Playground.ServiceHost\Playground.ServiceHost.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="protobuf-net.Grpc.AspNetCore" Version="1.0.36" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Infrastructure\Playground.Infrastructure.Extensions.Akka\Playground.Infrastructure.Extensions.Akka.csproj" />
+    <ProjectReference Include="..\Infrastructure\Playground.Infrastructure.Extensions.Swagger\Playground.Infrastructure.Extensions.Swagger.csproj" />
+    <ProjectReference Include="..\Infrastructure\Playground.Infrastructure.Repository\Playground.Infrastructure.Repository.csproj" />
+    <ProjectReference Include="..\Playground.Domain\Playground.Domain.csproj" />
+    <ProjectReference Include="..\Services\Playground.Services.ContractManagement.Actors\Playground.Services.ContractManagement.Actors.fsproj" />
+    <ProjectReference Include="..\Services\Playground.Services.ContractManagement\Playground.Services.ContractManagement.csproj" />
+  </ItemGroup>
+
+</Project>

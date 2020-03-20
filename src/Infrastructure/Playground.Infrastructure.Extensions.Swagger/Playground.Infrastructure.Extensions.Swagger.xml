@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Playground.Infrastructure.Extensions.Swagger</name>
+    </assembly>
+    <members>
+        <member name="T:Playground.Infrastructure.Extensions.Swagger.SwaggerGenOptionsExtensions">
+            <summary>
+            Extension methods to aid interop with <see cref="T:Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions"/>.
+            </summary>
+        </member>
+        <member name="M:Playground.Infrastructure.Extensions.Swagger.SwaggerGenOptionsExtensions.IncludeAllXmlComments(Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions,System.Boolean)">
+            <summary>
+            Inject human-friendly descriptions for Operations, Parameters and Schemas based on XML Comment files
+            for all loaded assemblies that have a <c>*.xml</c> documentation file in the application's base directory.
+            </summary>
+            <param name="swaggerGenOptions">The <see cref="T:Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions"/> to add the comments to.</param>
+            <param name="includeControllerXmlComments">Flag to indicate if controller XML comments (i.e. summary) should be used to
+            assign Tag descriptions. Don't set this flag if you're customizing the default tag for operations via TagActionsBy.</param>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Playground.ServiceHost</name>
+    </assembly>
+    <members>
+        <member name="T:Playground.ServiceHost.Program">
+            <summary>
+            Main program controller.
+            </summary>
+        </member>
+        <member name="M:Playground.ServiceHost.Program.Main(System.String[])">
+            <summary>
+            Main entry point.
+            </summary>
+        </member>
+        <member name="M:Playground.ServiceHost.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            Create the service host builder.
+            </summary>
+            <returns>The <see cref="T:Microsoft.Extensions.Hosting.IHostBuilder"/> to run the service host.</returns>
+        </member>
+        <member name="T:Playground.ServiceHost.Startup">
+            <summary>
+            Definition of the startup routine for the service host.
+            </summary>
+        </member>
+        <member name="M:Playground.ServiceHost.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+            </summary>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> of services to add to.</param>
+        </member>
+        <member name="M:Playground.ServiceHost.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.Extensions.Hosting.IHostEnvironment)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+    </members>
+</doc>

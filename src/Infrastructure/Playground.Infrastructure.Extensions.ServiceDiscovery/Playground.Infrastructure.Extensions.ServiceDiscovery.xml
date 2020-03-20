@@ -4,40 +4,40 @@
         <name>Playground.Infrastructure.Extensions.ServiceDiscovery</name>
     </assembly>
     <members>
-        <member name="T:Playground.Infrastructure.Services.ServiceDiscovery.Attributes.DiscoverableGrpcServiceAttribute">
+        <member name="T:Playground.Infrastructure.Extensions.ServiceDiscovery.Attributes.DiscoverableGrpcServiceAttribute">
             <summary>
             This attribute is used to register the decorated gRPC service with the remote service discovery mechanism.
             </summary>
         </member>
-        <member name="M:Playground.Infrastructure.Services.ServiceDiscovery.Attributes.DiscoverableGrpcServiceAttribute.#ctor(System.String,System.String[])">
+        <member name="M:Playground.Infrastructure.Extensions.ServiceDiscovery.Attributes.DiscoverableGrpcServiceAttribute.#ctor(System.String,System.String[])">
             <summary>
             Contructor to set the required properties of a discoverable gRPC service.
             </summary>
             <param name="serviceName">The name of the service to register with service discovery.</param>
             <param name="tags">Additional tags used to group the service.</param>
         </member>
-        <member name="T:Playground.Infrastructure.Services.ServiceDiscovery.Attributes.DiscoverableServiceAttribute">
+        <member name="T:Playground.Infrastructure.Extensions.ServiceDiscovery.Attributes.DiscoverableServiceAttribute">
             <summary>
-            The <see langword="abstract"/> <see cref="T:Playground.Infrastructure.Services.ServiceDiscovery.Attributes.DiscoverableServiceAttribute"/> is used as a base for more specific Discoverable Service attributes.
+            The <see langword="abstract"/> <see cref="T:Playground.Infrastructure.Extensions.ServiceDiscovery.Attributes.DiscoverableServiceAttribute"/> is used as a base for more specific Discoverable Service attributes.
             This attribute is used to register the decorated service with the remote service discovery mechanism.
             </summary>
         </member>
-        <member name="P:Playground.Infrastructure.Services.ServiceDiscovery.Attributes.DiscoverableServiceAttribute.ServiceName">
+        <member name="P:Playground.Infrastructure.Extensions.ServiceDiscovery.Attributes.DiscoverableServiceAttribute.ServiceName">
             <summary>
             The name of the service to register with service discovery.
             </summary>
         </member>
-        <member name="P:Playground.Infrastructure.Services.ServiceDiscovery.Attributes.DiscoverableServiceAttribute.ServiceType">
+        <member name="P:Playground.Infrastructure.Extensions.ServiceDiscovery.Attributes.DiscoverableServiceAttribute.ServiceType">
             <summary>
             The type of the service to register with service discovery.
             </summary>
         </member>
-        <member name="P:Playground.Infrastructure.Services.ServiceDiscovery.Attributes.DiscoverableServiceAttribute.Tags">
+        <member name="P:Playground.Infrastructure.Extensions.ServiceDiscovery.Attributes.DiscoverableServiceAttribute.Tags">
             <summary>
             Additional tags used to group the service.
             </summary>
         </member>
-        <member name="M:Playground.Infrastructure.Services.ServiceDiscovery.Attributes.DiscoverableServiceAttribute.#ctor(System.String,System.String,System.String[])">
+        <member name="M:Playground.Infrastructure.Extensions.ServiceDiscovery.Attributes.DiscoverableServiceAttribute.#ctor(System.String,System.String,System.String[])">
             <summary>
             Contructor to set the required properties of a discoverable service.
             </summary>

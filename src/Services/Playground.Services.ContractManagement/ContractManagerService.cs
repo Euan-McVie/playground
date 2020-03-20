@@ -6,7 +6,7 @@ using Playground.Domain.Models;
 using Playground.Domain.Services;
 using Playground.Infrastructure.Domain.Models;
 using Playground.Infrastructure.Extensions.Akka;
-using Playground.Infrastructure.Services.ServiceDiscovery.Attributes;
+using Playground.Infrastructure.Extensions.ServiceDiscovery.Attributes;
 using Playground.Intrastructure.Extensions.FSharp;
 using Playground.Services.ContractManagement.Actors;
 

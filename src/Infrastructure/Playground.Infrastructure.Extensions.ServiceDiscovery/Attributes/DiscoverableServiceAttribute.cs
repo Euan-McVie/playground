@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Playground.Infrastructure.Services.ServiceDiscovery.Attributes
+namespace Playground.Infrastructure.Extensions.ServiceDiscovery.Attributes
 {
     /// <summary>
     /// The <see langword="abstract"/> <see cref="DiscoverableServiceAttribute"/> is used as a base for more specific Discoverable Service attributes.
