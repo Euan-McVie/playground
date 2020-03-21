@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Playground.Infrastructure.Extensions.ServiceDiscovery.Consul</name>
+    </assembly>
+    <members>
+        <member name="T:Playground.Infrastructure.Services.ServiceDiscovery.ConsulExtensions">
+            <summary>
+            Extension methods to enable Consul as the service discovery provider.
+            </summary>
+        </member>
+        <member name="M:Playground.Infrastructure.Services.ServiceDiscovery.ConsulExtensions.AddConsulServiceDiscovery(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds Consul service discovery to the <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>. 
+            </summary>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add Consul service discovery to.</param>
+            <returns>The updated <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</returns>
+        </member>
+        <member name="M:Playground.Infrastructure.Services.ServiceDiscovery.ConsulExtensions.UseConsul(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Adds services with the <see cref="T:Playground.Infrastructure.Extensions.ServiceDiscovery.Attributes.DiscoverableServiceAttribute"/> to be registered to Consul by the <see cref="T:Microsoft.Extensions.Hosting.IHostApplicationLifetime"/>.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> to add the middleware to.</param>
+            <returns>A reference to this instance after the operation has completed.</returns>
+        </member>
+        <member name="M:Playground.Infrastructure.Services.ServiceDiscovery.Consul.ConsulLookup.TryGetServiceLocationAsync(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

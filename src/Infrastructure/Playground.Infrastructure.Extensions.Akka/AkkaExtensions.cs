@@ -5,6 +5,7 @@ using Akka.DI.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace Playground.Infrastructure.Extensions.Akka
 {
@@ -47,12 +48,19 @@ namespace Playground.Infrastructure.Extensions.Akka
 
             IHostApplicationLifetime lifetime = builder.ApplicationServices.GetService<IHostApplicationLifetime>();
 
+            // Setup logger
+            ILoggerFactory loggingFactory = builder.ApplicationServices
+                                .GetRequiredService<ILoggerFactory>();
+            ILogger<IApplicationBuilder> logger = loggingFactory.CreateLogger<IApplicationBuilder>();
+
             lifetime.ApplicationStarted.Register(() =>
             {
+                logger.LogInformation("Starting Akka actor system");
                 builder.ApplicationServices.GetService<ActorSystem>(); // start Akka.NET
             });
             lifetime.ApplicationStopping.Register(() =>
             {
+                logger.LogInformation("Stopping Akka actor system");
                 builder.ApplicationServices.GetService<ActorSystem>().Terminate().Wait();
             });
 

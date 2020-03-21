@@ -45,5 +45,30 @@
             <param name="serviceType">The type of the service to register with service discovery.</param>
             <param name="tags">Additional tags used to group the service.</param>
         </member>
+        <member name="T:Playground.Infrastructure.Extensions.ServiceDiscovery.Attributes.DiscoverableWebAPIServiceAttribute">
+            <summary>
+            This attribute is used to register the decorated Web API service with the remote service discovery mechanism.
+            </summary>
+        </member>
+        <member name="M:Playground.Infrastructure.Extensions.ServiceDiscovery.Attributes.DiscoverableWebAPIServiceAttribute.#ctor(System.String,System.String[])">
+            <summary>
+            Contructor to set the required properties of a discoverable Web API service.
+            </summary>
+            <param name="serviceName">The name of the service to register with service discovery.</param>
+            <param name="tags">Additional tags used to group the service.</param>
+        </member>
+        <member name="T:Playground.Infrastructure.Extensions.ServiceDiscovery.Interfaces.IServiceLookup">
+            <summary>
+            Contract for looking up a service location from a discovery service.
+            </summary>
+        </member>
+        <member name="M:Playground.Infrastructure.Extensions.ServiceDiscovery.Interfaces.IServiceLookup.TryGetServiceLocationAsync(System.String,System.String)">
+            <summary>
+            Try to find the location for the provided <paramref name="serviceName"/>.
+            </summary>
+            <param name="serviceName">The name of the service to find.</param>
+            <param name="serviceType">The type of the service to find.</param>
+            <returns>A <see cref="T:System.ValueTuple"/> containing an <c>IsFound</c> flag and the <c>Location</c> <see cref="T:System.Uri"/> if it is.</returns>
+        </member>
     </members>
 </doc>
