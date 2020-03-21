@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Playground.Domain.Models;
 using Playground.Domain.Services;
 using Playground.Infrastructure.Domain.Models;
+using Playground.Infrastructure.Extensions.ServiceDiscovery.Attributes;
 
 namespace Playground.Services.ContractManagement
 {
@@ -13,6 +14,7 @@ namespace Playground.Services.ContractManagement
     /// </summary>
     [ApiController]
     [Route("[controller]")]
+    [DiscoverableWebAPIService("Playground.ContractManager", "Playground", "Contract Management")]
     public class ContractManagerController : ControllerBase
     {
         private readonly IContractManager _contractManager;

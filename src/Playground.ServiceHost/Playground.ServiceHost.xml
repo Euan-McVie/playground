@@ -30,14 +30,14 @@
             This method gets called by the runtime. Use this method to add services to the container.
             For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
             </summary>
-            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> of services to add to.</param>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add services to.</param>
         </member>
         <member name="M:Playground.ServiceHost.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.Extensions.Hosting.IHostEnvironment)">
             <summary>
             This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
             </summary>
-            <param name="app"></param>
-            <param name="env"></param>
+            <param name="app">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> to add the middleware to.</param>
+            <param name="env">The <see cref="T:Microsoft.Extensions.Hosting.IHostEnvironment"/> providing hosting environment information.</param>
         </member>
     </members>
 </doc>

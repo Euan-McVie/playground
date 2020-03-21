@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Playground.Infrastructure.Extensions.Akka\Playground.Infrastructure.Extensions.Akka.csproj" />
+    <ProjectReference Include="..\Infrastructure\Playground.Infrastructure.Extensions.ServiceDiscovery.Consul\Playground.Infrastructure.Extensions.ServiceDiscovery.Consul.csproj" />
     <ProjectReference Include="..\Infrastructure\Playground.Infrastructure.Extensions.Swagger\Playground.Infrastructure.Extensions.Swagger.csproj" />
     <ProjectReference Include="..\Infrastructure\Playground.Infrastructure.Repository\Playground.Infrastructure.Repository.csproj" />
     <ProjectReference Include="..\Playground.Domain\Playground.Domain.csproj" />
