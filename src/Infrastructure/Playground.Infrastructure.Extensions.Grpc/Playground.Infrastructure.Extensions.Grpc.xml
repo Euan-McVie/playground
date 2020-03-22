@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Playground.Infrastructure.Extensions.Grpc</name>
+    </assembly>
+    <members>
+        <member name="T:Playground.Infrastructure.Extensions.Grpc.GrpcClient`1">
+            <summary>
+            Defines a client wrapper for calling a code first gRPC service.
+            </summary>
+            <typeparam name="TService">The code first gRPC service definition.</typeparam>
+        </member>
+        <member name="M:Playground.Infrastructure.Extensions.Grpc.GrpcClient`1.#ctor(Playground.Infrastructure.Extensions.ServiceDiscovery.Interfaces.IServiceLookup)">
+            <summary>
+            Constructor for a gRPC client wrapper calling the code first gRPC <typeparamref name="TService"/>.
+            </summary>
+            <param name="serviceLookup">The service discovery <see cref="T:Playground.Infrastructure.Extensions.ServiceDiscovery.Interfaces.IServiceLookup"/> to use to find the service.</param>
+            <exception cref="T:System.ArgumentException">When the <typeparamref name="TService"/> does not have the <see cref="T:Playground.Infrastructure.Extensions.ServiceDiscovery.Attributes.DiscoverableGrpcServiceAttribute"/> applied
+            or has multiple <see cref="T:Playground.Infrastructure.Extensions.ServiceDiscovery.Attributes.DiscoverableGrpcServiceAttribute"/> applied within its inheritance hierarchy.</exception>
+        </member>
+        <member name="M:Playground.Infrastructure.Extensions.Grpc.GrpcClient`1.CallAsync``1(System.Func{`0,System.Threading.Tasks.Task{``0}})">
+            <summary>
+            Makes a call to an operation on the remote gRPC service.
+            </summary>
+            <typeparam name="TResult">The type of result returned by the operation.</typeparam>
+            <param name="operation">A function defining the operation on the remote <typeparamref name="TService"/> to call.</param>
+            <returns>The result of calling the remote <paramref name="operation"/>.</returns>
+            <exception cref="T:System.InvalidOperationException">If the address for the service cannot be found using the service discovery's <see cref="T:Playground.Infrastructure.Extensions.ServiceDiscovery.Interfaces.IServiceLookup"/>.</exception>
+        </member>
+        <member name="M:Playground.Infrastructure.Extensions.Grpc.GrpcClient`1.GetServiceUriAsync">
+            <summary>
+            Looks up the address for the service using the service discovery's <see cref="T:Playground.Infrastructure.Extensions.ServiceDiscovery.Interfaces.IServiceLookup"/>.
+            </summary>
+            <returns>The <see cref="T:System.Uri"/> for the service.</returns>
+            <exception cref="T:System.InvalidOperationException">If the address for the service cannot be found using the service discovery's <see cref="T:Playground.Infrastructure.Extensions.ServiceDiscovery.Interfaces.IServiceLookup"/>.</exception>
+        </member>
+        <member name="T:Playground.Infrastructure.Extensions.Grpc.GrpcClientExtensions">
+            <summary>
+            Extension methods to construct a gRPC client.
+            </summary>
+        </member>
+        <member name="M:Playground.Infrastructure.Extensions.Grpc.GrpcClientExtensions.AddGrpcClient``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Add a gRPC client for the provided <typeparamref name="TService"/>.
+            The service's location will be found using the configured service discovery.
+            </summary>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the gRPC client to.</param>
+            <returns>The updated <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</returns>
+        </member>
+    </members>
+</doc>

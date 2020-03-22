@@ -18,7 +18,7 @@
         </member>
         <member name="M:Playground.Infrastructure.Services.ServiceDiscovery.ConsulExtensions.UseConsul(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
             <summary>
-            Adds services with the <see cref="T:Playground.Infrastructure.Extensions.ServiceDiscovery.Attributes.DiscoverableServiceAttribute"/> to be registered to Consul by the <see cref="T:Microsoft.Extensions.Hosting.IHostApplicationLifetime"/>.
+            Registers services with a <see cref="T:Playground.Infrastructure.Extensions.ServiceDiscovery.Attributes.DiscoverableServiceAttribute"/> to Consul using the <see cref="T:Microsoft.Extensions.Hosting.IHostApplicationLifetime"/>.
             </summary>
             <param name="builder">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> to add the middleware to.</param>
             <returns>A reference to this instance after the operation has completed.</returns>

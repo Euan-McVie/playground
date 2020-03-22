@@ -40,7 +40,7 @@ namespace Playground.Infrastructure.Services.ServiceDiscovery
         }
 
         /// <summary>
-        /// Adds services with the <see cref="DiscoverableServiceAttribute"/> to be registered to Consul by the <see cref="IHostApplicationLifetime"/>.
+        /// Registers services with a <see cref="DiscoverableServiceAttribute"/> to Consul using the <see cref="IHostApplicationLifetime"/>.
         /// </summary>
         /// <param name="builder">The <see cref="IApplicationBuilder"/> to add the middleware to.</param>
         /// <returns>A reference to this instance after the operation has completed.</returns>
