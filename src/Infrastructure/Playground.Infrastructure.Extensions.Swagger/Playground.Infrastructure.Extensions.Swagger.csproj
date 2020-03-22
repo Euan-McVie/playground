@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <DocumentationFile>C:\Development\playground\src\Infrastructure\Playground.Infrastructure.Extensions.Swagger\Playground.Infrastructure.Extensions.Swagger.xml</DocumentationFile>
+    <DocumentationFile>Playground.Infrastructure.Extensions.Swagger.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

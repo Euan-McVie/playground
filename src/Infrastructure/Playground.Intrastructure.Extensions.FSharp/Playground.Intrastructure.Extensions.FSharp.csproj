@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <DocumentationFile>C:\Development\playground\src\Infrastructure\Playground.Intrastructure.Extensions.FSharp\Playground.Intrastructure.Extensions.FSharp.xml</DocumentationFile>
+    <DocumentationFile>Playground.Intrastructure.Extensions.FSharp.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

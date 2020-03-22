@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <DocumentationFile>C:\Development\playground\src\Infrastructure\Playground.Infrastructure.Extensions.Akka\Playground.Infrastructure.Extensions.Akka.xml</DocumentationFile>
+    <DocumentationFile>Playground.Infrastructure.Extensions.Akka.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

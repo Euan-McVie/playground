@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <DocumentationFile>C:\Development\playground\src\Infrastructure\Playground.Infrastructure.Repository\Playground.Infrastructure.Repository.xml</DocumentationFile>
+    <DocumentationFile>Playground.Infrastructure.Repository.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

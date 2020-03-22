@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <DocumentationFile>C:\Development\playground\src\Infrastructure\Playground.Infrastructure.Extensions.ServiceDiscovery.Consul\Playground.Infrastructure.Extensions.ServiceDiscovery.Consul.xml</DocumentationFile>
+    <DocumentationFile>Playground.Infrastructure.Extensions.ServiceDiscovery.Consul.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
