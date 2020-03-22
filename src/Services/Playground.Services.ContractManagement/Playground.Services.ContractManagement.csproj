@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-      <DocumentationFile>C:\Development\playground\src\Services\Playground.Services.ContractManagement\Playground.Services.ContractManagement.xml</DocumentationFile>
+      <DocumentationFile>Playground.Services.ContractManagement.xml</DocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
@@ -19,10 +19,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Domains\Playground.Domains.ContractManagement\Playground.Domains.ContractManagement.csproj" />
       <ProjectReference Include="..\..\Infrastructure\Playground.Infrastructure.Extensions.Akka\Playground.Infrastructure.Extensions.Akka.csproj" />
       <ProjectReference Include="..\..\Infrastructure\Playground.Infrastructure.Extensions.ServiceDiscovery\Playground.Infrastructure.Extensions.ServiceDiscovery.csproj" />
       <ProjectReference Include="..\..\Infrastructure\Playground.Intrastructure.Extensions.FSharp\Playground.Intrastructure.Extensions.FSharp.csproj" />
-      <ProjectReference Include="..\..\Playground.Domain\Playground.Domain.csproj" />
       <ProjectReference Include="..\Playground.Services.ContractManagement.Actors\Playground.Services.ContractManagement.Actors.fsproj" />
     </ItemGroup>
 </Project>

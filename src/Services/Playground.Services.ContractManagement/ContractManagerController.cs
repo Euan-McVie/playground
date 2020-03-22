@@ -2,8 +2,8 @@
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Playground.Domain.Models;
-using Playground.Domain.Services;
+using Playground.Domains.ContractManagement.Models;
+using Playground.Domains.ContractManagement.Services;
 using Playground.Infrastructure.Domain.Models;
 
 namespace Playground.Services.ContractManagement

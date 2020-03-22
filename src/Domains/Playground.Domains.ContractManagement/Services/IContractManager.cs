@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
-using Playground.Domain.Models;
+using Playground.Domains.ContractManagement.Models;
 using Playground.Infrastructure.Domain.Models;
 using Playground.Infrastructure.Extensions.ServiceDiscovery.Attributes;
 using ProtoBuf.Grpc.Configuration;
 
-namespace Playground.Domain.Services
+namespace Playground.Domains.ContractManagement.Services
 {
     /// <summary>
     /// Contract for a service to manage Contracts.

@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <DocumentationFile>\Playground.Services.ContractManagement.Actors.XML</DocumentationFile>
+    <DocumentationFile>Playground.Services.ContractManagement.Actors.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

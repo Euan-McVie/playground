@@ -1,6 +1,6 @@
 ﻿using ProtoBuf;
 
-namespace Playground.Domain.Models
+namespace Playground.Domains.ContractManagement.Models
 {
     /// <summary>
     /// A request for a single contract.

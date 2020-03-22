@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>Playground.Services.ContractManagement.Actors</name></assembly>
+<members>
+<member name="P:Playground.Services.ContractManagement.Actors.Contract.tradeTimestamp">
+<summary>
+ The timestamp for when the contract was traded.
+</summary>
+</member>
+<member name="P:Playground.Services.ContractManagement.Actors.Contract.volume">
+<summary>
+ The volume of the contract.
+</summary>
+</member>
+<member name="P:Playground.Services.ContractManagement.Actors.Contract.price">
+<summary>
+ The price of the contract.
+</summary>
+</member>
+<member name="P:Playground.Services.ContractManagement.Actors.Contract.id">
+<summary>
+ The unique identifier for the contract.
+</summary>
+</member>
+<member name="T:Playground.Services.ContractManagement.Actors.Contract">
+<summary>
+ Represents an instance of a contract.
+</summary>
+</member>
+<member name="T:Playground.Services.ContractManagement.Actors.ContractActor.ContractCommand.GetContract">
+<summary>
+ Command to retrieve and return a contract to the sender.
+</summary>
+</member>
+<member name="T:Playground.Services.ContractManagement.Actors.ContractActor.ContractCommand">
+<summary>
+ The commands that a contract actor responds to.
+</summary>
+</member>
+<member name="M:Playground.Services.ContractManagement.Actors.ContractActor.CreateActor(Akka.Actor.IActorRefFactory,System.IServiceProvider,System.Int32)">
+<summary>
+ Creates an instance of a contract actor, under the provided contract manager, to manage a contract with the provided id.
+</summary>
+</member>
+<member name="M:Playground.Services.ContractManagement.Actors.ContractActor.contractActor(System.IServiceProvider,System.Int32,Akka.FSharp.Actors.Actor{Playground.Services.ContractManagement.Actors.ContractActor.ContractCommand})">
+<summary>
+ The implementation of the contract actor.
+</summary>
+</member>
+<member name="T:Playground.Services.ContractManagement.Actors.ContractActor">
+<summary>
+ Module containing behaviour for an actor that manages a single contract.
+</summary>
+</member>
+<member name="T:Playground.Services.ContractManagement.Actors.CreateContractActor.CreateContractCommand.CreateContract">
+<summary>
+ Command to create a new contract from the provided contract record.
+</summary>
+</member>
+<member name="T:Playground.Services.ContractManagement.Actors.CreateContractActor.CreateContractCommand">
+<summary>
+ The commands that a create contract actor responds to.
+</summary>
+</member>
+<member name="M:Playground.Services.ContractManagement.Actors.CreateContractActor.CreateActor(Akka.Actor.IActorRefFactory,System.IServiceProvider)">
+<summary>
+ Creates an instance of a create contract actor under the provided contract manager.
+</summary>
+</member>
+<member name="M:Playground.Services.ContractManagement.Actors.CreateContractActor.createContractActor``1(System.IServiceProvider,Akka.FSharp.Actors.Actor{Playground.Services.ContractManagement.Actors.CreateContractActor.CreateContractCommand})">
+<summary>
+ The implementation of the create contract actor.
+</summary>
+</member>
+<member name="T:Playground.Services.ContractManagement.Actors.CreateContractActor">
+<summary>
+ Module containing behaviour for an actor that creates a new contract.
+</summary>
+</member>
+<member name="T:Playground.Services.ContractManagement.Actors.ContractManagerActor.ContractManagerCommand.GetContract">
+<summary>
+ Command to retrieve and return a contract with the provided id to the sender.
+</summary>
+</member>
+<member name="T:Playground.Services.ContractManagement.Actors.ContractManagerActor.ContractManagerCommand.CreateContract">
+<summary>
+ Command to create a new contract from the provided contract record.
+</summary>
+</member>
+<member name="T:Playground.Services.ContractManagement.Actors.ContractManagerActor.ContractManagerCommand">
+<summary>
+ The commands that a contract manager actor responds to.
+</summary>
+</member>
+<member name="M:Playground.Services.ContractManagement.Actors.ContractManagerActor.CreateActor(Akka.Actor.IActorRefFactory,System.IServiceProvider)">
+<summary>
+ Creates an instance of a contract manager actor under the provided actor system.
+</summary>
+</member>
+<member name="M:Playground.Services.ContractManagement.Actors.ContractManagerActor.contractManagerActor``1(System.IServiceProvider,Akka.FSharp.Actors.Actor{System.Object})">
+<summary>
+ The implementation of the contract manager actor.
+</summary>
+</member>
+<member name="T:Playground.Services.ContractManagement.Actors.ContractManagerActor">
+<summary>
+ Module containing behaviour for an actor that manages contracts.
+</summary>
+</member>
+</members>
+</doc>

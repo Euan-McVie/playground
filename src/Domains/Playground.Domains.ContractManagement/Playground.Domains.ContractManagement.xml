@@ -1,90 +1,90 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>Playground.Domain</name>
+        <name>Playground.Domains.ContractManagement</name>
     </assembly>
     <members>
-        <member name="T:Playground.Domain.Models.ContractDetailsDTO">
+        <member name="T:Playground.Domains.ContractManagement.Models.ContractDetailsDTO">
             <summary>
             The details of a contract.
             </summary>
         </member>
-        <member name="P:Playground.Domain.Models.ContractDetailsDTO.Price">
+        <member name="P:Playground.Domains.ContractManagement.Models.ContractDetailsDTO.Price">
             <summary>
             The price of the contract.
             </summary>
         </member>
-        <member name="P:Playground.Domain.Models.ContractDetailsDTO.Volume">
+        <member name="P:Playground.Domains.ContractManagement.Models.ContractDetailsDTO.Volume">
             <summary>
             The volume of the contract.
             </summary>
         </member>
-        <member name="P:Playground.Domain.Models.ContractDetailsDTO.TradeTimestampUTC">
+        <member name="P:Playground.Domains.ContractManagement.Models.ContractDetailsDTO.TradeTimestampUTC">
             <summary>
             The timestamp in UTC for when the contract was traded.
             </summary>
         </member>
-        <member name="T:Playground.Domain.Models.ContractDTO">
+        <member name="T:Playground.Domains.ContractManagement.Models.ContractDTO">
             <summary>
             Represents an instance of a contract.
             </summary>
         </member>
-        <member name="P:Playground.Domain.Models.ContractDTO.Id">
+        <member name="P:Playground.Domains.ContractManagement.Models.ContractDTO.Id">
             <summary>
             The unique identifier for the contract.
             </summary>
         </member>
-        <member name="P:Playground.Domain.Models.ContractDTO.Details">
+        <member name="P:Playground.Domains.ContractManagement.Models.ContractDTO.Details">
             <summary>
             The details of the contract.
             </summary>
         </member>
-        <member name="P:Playground.Domain.Models.ContractDTO.CreatedAtUTC">
+        <member name="P:Playground.Domains.ContractManagement.Models.ContractDTO.CreatedAtUTC">
             <summary>
             The timestamp for when the contract was created.
             </summary>
         </member>
-        <member name="P:Playground.Domain.Models.ContractDTO.CreatedBy">
+        <member name="P:Playground.Domains.ContractManagement.Models.ContractDTO.CreatedBy">
             <summary>
             The username of of the user that created the contract.
             </summary>
         </member>
-        <member name="P:Playground.Domain.Models.ContractDTO.BookValue">
+        <member name="P:Playground.Domains.ContractManagement.Models.ContractDTO.BookValue">
             <summary>
             The calculated book value for the contract.
             </summary>
         </member>
-        <member name="T:Playground.Domain.Models.SingleContractRequestDTO">
+        <member name="T:Playground.Domains.ContractManagement.Models.SingleContractRequestDTO">
             <summary>
             A request for a single contract.
             </summary>
         </member>
-        <member name="P:Playground.Domain.Models.SingleContractRequestDTO.Id">
+        <member name="P:Playground.Domains.ContractManagement.Models.SingleContractRequestDTO.Id">
             <summary>
-            List of <see cref="P:Playground.Domain.Models.ContractDTO.Id"/> to filter on. An empty list will match all contracts.
+            List of <see cref="P:Playground.Domains.ContractManagement.Models.ContractDTO.Id"/> to filter on. An empty list will match all contracts.
             </summary>
         </member>
-        <member name="T:Playground.Domain.Services.IContractManager">
+        <member name="T:Playground.Domains.ContractManagement.Services.IContractManager">
             <summary>
             Contract for a service to manage Contracts.
             </summary>
         </member>
-        <member name="M:Playground.Domain.Services.IContractManager.CreateContractAsync(Playground.Domain.Models.ContractDetailsDTO)">
+        <member name="M:Playground.Domains.ContractManagement.Services.IContractManager.CreateContractAsync(Playground.Domains.ContractManagement.Models.ContractDetailsDTO)">
             <summary>
-            Creates a new contract with the provided <see cref="T:Playground.Domain.Models.ContractDetailsDTO"/> contract details.
+            Creates a new contract with the provided <see cref="T:Playground.Domains.ContractManagement.Models.ContractDetailsDTO"/> contract details.
             </summary>
             <param name="contractDetails">The details for the contract to create.</param>
             <returns>A <see cref="T:Playground.Infrastructure.Domain.Models.ResultDTO`2"/> for the result of the creation request.
             If successful then it contains the unique <see cref="T:System.Int32"/> id for the new contract.
             If unsuccessful then it contains an error message describing the failure.</returns>
         </member>
-        <member name="M:Playground.Domain.Services.IContractManager.GetContractAsync(Playground.Domain.Models.SingleContractRequestDTO)">
+        <member name="M:Playground.Domains.ContractManagement.Services.IContractManager.GetContractAsync(Playground.Domains.ContractManagement.Models.SingleContractRequestDTO)">
             <summary>
             Retrieves a previously saved contract with the provided unique <see cref="T:System.Int32"/> id.
             </summary>
             <param name="request">The request for retrieving a contract.</param>
             <returns>A <see cref="T:Playground.Infrastructure.Domain.Models.ResultDTO`2"/> for the result of fetch request.
-            If successful then it contains the <see cref="T:Playground.Domain.Models.ContractDTO"/> for the requested contract.
+            If successful then it contains the <see cref="T:Playground.Domains.ContractManagement.Models.ContractDTO"/> for the requested contract.
             If unsuccessful then it contains an error message describing the failure.</returns>
         </member>
     </members>

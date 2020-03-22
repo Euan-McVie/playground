@@ -1,7 +1,7 @@
 ﻿using System;
 using ProtoBuf;
 
-namespace Playground.Domain.Models
+namespace Playground.Domains.ContractManagement.Models
 {
     /// <summary>
     /// The details of a contract.

@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Playground.Domain.Services;
+using Playground.Domains.ContractManagement.Services;
 using Playground.Infrastructure.Extensions.Akka;
 using Playground.Infrastructure.Extensions.Swagger;
 using Playground.Infrastructure.Repository.Extensions;

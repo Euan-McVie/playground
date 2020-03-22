@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <DocumentationFile>C:\Development\playground\src\Playground.ServiceHost\Playground.ServiceHost.xml</DocumentationFile>
+    <DocumentationFile>Playground.ServiceHost.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,7 +24,6 @@
     <ProjectReference Include="..\Infrastructure\Playground.Infrastructure.Extensions.ServiceDiscovery.Consul\Playground.Infrastructure.Extensions.ServiceDiscovery.Consul.csproj" />
     <ProjectReference Include="..\Infrastructure\Playground.Infrastructure.Extensions.Swagger\Playground.Infrastructure.Extensions.Swagger.csproj" />
     <ProjectReference Include="..\Infrastructure\Playground.Infrastructure.Repository\Playground.Infrastructure.Repository.csproj" />
-    <ProjectReference Include="..\Playground.Domain\Playground.Domain.csproj" />
     <ProjectReference Include="..\Services\Playground.Services.ContractManagement.Actors\Playground.Services.ContractManagement.Actors.fsproj" />
     <ProjectReference Include="..\Services\Playground.Services.ContractManagement\Playground.Services.ContractManagement.csproj" />
   </ItemGroup>

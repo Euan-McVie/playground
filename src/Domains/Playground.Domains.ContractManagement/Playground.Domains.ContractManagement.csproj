@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DocumentationFile>Playground.Domains.ContractManagement.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="protobuf-net.Grpc" Version="1.0.36" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\Playground.Infrastructure.Domain\Playground.Infrastructure.Domain.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Playground.Infrastructure.Extensions.ServiceDiscovery\Playground.Infrastructure.Extensions.ServiceDiscovery.csproj" />
+  </ItemGroup>
+
+</Project>
