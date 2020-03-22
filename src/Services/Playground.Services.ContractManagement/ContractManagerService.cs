@@ -4,9 +4,9 @@ using Akka.Actor;
 using Microsoft.FSharp.Core;
 using Playground.Domain.Models;
 using Playground.Domain.Services;
+using Playground.Infrastructure.Domain.Extensions;
 using Playground.Infrastructure.Domain.Models;
 using Playground.Infrastructure.Extensions.Akka;
-using Playground.Infrastructure.Extensions.ServiceDiscovery.Attributes;
 using Playground.Intrastructure.Extensions.FSharp;
 using Playground.Services.ContractManagement.Actors;
 
@@ -15,7 +15,6 @@ namespace Playground.Services.ContractManagement
     /// <summary>
     /// Service implementation for contract management.
     /// </summary>
-    [DiscoverableGrpcService("Playground.ContractManager", "Playground", "Contract Management")]
     public class ContractManagerService : IContractManager
     {
         private readonly IActorRef _contractManagerActor;
@@ -43,7 +42,9 @@ namespace Playground.Services.ContractManagement
                         default,
                         contractDetails.Price,
                         contractDetails.Volume,
-                        contractDetails.TradeTimestamp.ToFSharpOption())))
+                        FSharpOption<DateTimeOffset>.None
+                    //contractDetails.TradeTimestamp.ToFSharpOption())
+                    )))
                 .ConfigureAwait(false);
 
             FSharpResult<int, string> typedResult = result.ResultFromFSharp<int>();
@@ -55,10 +56,13 @@ namespace Playground.Services.ContractManagement
         }
 
         /// <inheritdoc/>
-        public async Task<ResultDTO<ContractDTO, string>> GetContractAsync(int id)
+        public async Task<ResultDTO<ContractDTO, string>> GetContractAsync(SingleContractRequestDTO request)
         {
+            if (request is null)
+                throw new ArgumentNullException(nameof(request));
+
             object result = await _contractManagerActor
-                .Ask(ContractManagerActor.ContractManagerCommand.NewGetContract(id))
+                .Ask(ContractManagerActor.ContractManagerCommand.NewGetContract(request.Id))
                 .ConfigureAwait(false);
 
             FSharpResult<Contract, string> typedResult = result.ResultFromFSharp<Contract>();
@@ -72,7 +76,7 @@ namespace Playground.Services.ContractManagement
                         {
                             Price = typedResult.ResultValue.price,
                             Volume = typedResult.ResultValue.volume,
-                            TradeTimestamp = typedResult.ResultValue.tradeTimestamp.ToNullable()
+                            TradeTimestampUTC = typedResult.ResultValue.tradeTimestamp.ToNullable().ToUtcDateTime()
                         }
                     });
             else

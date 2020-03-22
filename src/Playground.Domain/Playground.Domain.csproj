@@ -18,6 +18,7 @@
     
     <ItemGroup>
       <ProjectReference Include="..\Infrastructure\Playground.Infrastructure.Domain\Playground.Infrastructure.Domain.csproj" />
+      <ProjectReference Include="..\Infrastructure\Playground.Infrastructure.Extensions.ServiceDiscovery\Playground.Infrastructure.Extensions.ServiceDiscovery.csproj" />
     </ItemGroup>
 
 </Project>

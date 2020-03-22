@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.Serialization;
+using ProtoBuf;
 
 namespace Playground.Infrastructure.Domain.Models
 {
@@ -9,33 +9,57 @@ namespace Playground.Infrastructure.Domain.Models
     /// </summary>
     /// <typeparam name="TSuccess">The type of the success data.</typeparam>
     /// <typeparam name="TError">the type of the error data.</typeparam>
-    [DataContract]
+    [ProtoContract]
     public class ResultDTO<TSuccess, TError>
     {
-        private readonly bool _isSuccessful;
-        [AllowNull]
-        private readonly TSuccess _successData;
-        [AllowNull]
-        private readonly TError _errorData;
+        private ResultDTO()
+        {
+            SuccessData = default;
+            ErrorData = default;
+        }
 
         internal ResultDTO(bool isSuccessful, [AllowNull]TSuccess successData, [AllowNull]TError errorData)
         {
-            _isSuccessful = isSuccessful;
-            _successData = successData;
-            _errorData = errorData;
+            IsSuccessful = isSuccessful;
+            SuccessData = successData;
+            ErrorData = errorData;
         }
+
+
+
+        /// <summary>
+        /// Flag for whether the result is a Success or Error.
+        /// </summary>
+        [ProtoMember(1)]
+        public bool IsSuccessful { get; }
+
+        /// <summary>
+        /// The <typeparamref name="TSuccess"/> success data.
+        /// If the <c>IsSuccessful</c> flag is false then the success data will be the default for <typeparamref name="TSuccess"/>.
+        /// </summary>
+        [AllowNull]
+        [ProtoMember(2)]
+        public TSuccess SuccessData { get; }
+
+        /// <summary>
+        /// The <typeparamref name="TError"/> error data.
+        /// If the <c>IsError</c> flag is false then the error data will be the default for <typeparamref name="TError"/>.
+        /// </summary>
+        [AllowNull]
+        [ProtoMember(3)]
+        public TError ErrorData { get; }
 
         /// <summary>
         /// A <see cref="ValueTuple"/> consisting of an <c>IsSuccessful</c> flag and the <typeparamref name="TSuccess"/> success data.
         /// If the <c>IsSuccessful</c> flag is false then the success data will be the default for <typeparamref name="TSuccess"/>.
         /// </summary>
-        public (bool IsSuccessful, TSuccess SuccessData) Successful => (_isSuccessful, _successData);
+        public (bool IsSuccessful, TSuccess SuccessData) Successful => (IsSuccessful, SuccessData);
 
         /// <summary>
         /// A <see cref="ValueTuple"/> consisting of an <c>IsError</c> flag and the <typeparamref name="TError"/> error data.
         /// If the <c>IsError</c> flag is false then the error data will be the default for <typeparamref name="TError"/>.
         /// </summary>
-        public (bool IsError, TError ErrorData) Error => (!_isSuccessful, _errorData);
+        public (bool IsError, TError ErrorData) Error => (!IsSuccessful, ErrorData);
 
         /// <summary>
         /// Allows deconstruction of the <see cref="ResultDTO{TSuccess, TError}"/> to enable pattern matching.
@@ -45,9 +69,9 @@ namespace Playground.Infrastructure.Domain.Models
         /// <param name="ErrorData"></param>
         public void Deconstruct(out bool IsSuccessful, out TSuccess SuccessData, out TError ErrorData)
         {
-            IsSuccessful = _isSuccessful;
-            SuccessData = _successData;
-            ErrorData = _errorData;
+            IsSuccessful = this.IsSuccessful;
+            SuccessData = this.SuccessData;
+            ErrorData = this.ErrorData;
         }
     }
 

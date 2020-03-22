@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Playground.Domain.Models;
 using Playground.Domain.Services;
 using Playground.Infrastructure.Domain.Models;
-using Playground.Infrastructure.Extensions.ServiceDiscovery.Attributes;
 
 namespace Playground.Services.ContractManagement
 {
@@ -14,7 +13,6 @@ namespace Playground.Services.ContractManagement
     /// </summary>
     [ApiController]
     [Route("[controller]")]
-    [DiscoverableWebAPIService("Playground.ContractManager", "Playground", "Contract Management")]
     public class ContractManagerController : ControllerBase
     {
         private readonly IContractManager _contractManager;
@@ -42,7 +40,9 @@ namespace Playground.Services.ContractManagement
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<ContractDTO>> GetContract(int id)
         {
-            ResultDTO<ContractDTO, string> result = await _contractManager.GetContractAsync(id).ConfigureAwait(false);
+            ResultDTO<ContractDTO, string> result = await _contractManager
+                .GetContractAsync(new SingleContractRequestDTO { Id = id })
+                .ConfigureAwait(false);
 
             return result switch
             {

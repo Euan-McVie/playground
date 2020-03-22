@@ -22,9 +22,9 @@ namespace Playground.Domain.Models
         public decimal Volume { get; set; }
 
         /// <summary>
-        /// The timestamp for when the contract was traded.
+        /// The timestamp in UTC for when the contract was traded.
         /// </summary>
         [ProtoMember(3, DataFormat = DataFormat.WellKnown)]
-        public DateTimeOffset? TradeTimestamp { get; set; }
+        public DateTime? TradeTimestampUTC { get; set; }
     }
 }

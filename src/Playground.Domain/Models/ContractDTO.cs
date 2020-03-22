@@ -25,7 +25,7 @@ namespace Playground.Domain.Models
         /// The timestamp for when the contract was created.
         /// </summary>
         [ProtoMember(3, DataFormat = DataFormat.WellKnown)]
-        public DateTimeOffset CreatedAt { get; set; }
+        public DateTime CreatedAtUTC { get; set; }
 
         /// <summary>
         /// The username of of the user that created the contract.

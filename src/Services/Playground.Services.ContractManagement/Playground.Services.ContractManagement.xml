@@ -38,7 +38,7 @@
         <member name="M:Playground.Services.ContractManagement.ContractManagerService.CreateContractAsync(Playground.Domain.Models.ContractDetailsDTO)">
             <inheritdoc/>
         </member>
-        <member name="M:Playground.Services.ContractManagement.ContractManagerService.GetContractAsync(System.Int32)">
+        <member name="M:Playground.Services.ContractManagement.ContractManagerService.GetContractAsync(Playground.Domain.Models.SingleContractRequestDTO)">
             <inheritdoc/>
         </member>
     </members>
