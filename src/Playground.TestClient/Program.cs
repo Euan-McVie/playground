@@ -1,9 +1,9 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
+using Playground.Infrastructure.Extensions.Console;
 
-namespace Playground.ServiceHost
+namespace Playground.TestClient
 {
-    static class Program
+    class MainProgram
     {
         static void Main(string[] args)
         {
@@ -12,9 +12,9 @@ namespace Playground.ServiceHost
 
         static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
+                .ConfigureConsoleDefaults(consoleBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    consoleBuilder.UseStartup<Startup>();
                 });
     }
 }

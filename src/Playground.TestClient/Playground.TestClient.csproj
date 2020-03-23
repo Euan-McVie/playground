@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DocumentationFile>Playground.TestClient.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domains\Playground.Domains.ContractManagement\Playground.Domains.ContractManagement.csproj" />
+    <ProjectReference Include="..\Infrastructure\Playground.Infrastructure.Extensions.Console\Playground.Infrastructure.Extensions.Console.csproj" />
+    <ProjectReference Include="..\Infrastructure\Playground.Infrastructure.Extensions.Grpc\Playground.Infrastructure.Extensions.Grpc.csproj" />
+    <ProjectReference Include="..\Infrastructure\Playground.Infrastructure.Extensions.ServiceDiscovery.Consul\Playground.Infrastructure.Extensions.ServiceDiscovery.Consul.csproj" />
+  </ItemGroup>
+
+</Project>

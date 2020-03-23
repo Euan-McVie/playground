@@ -4,22 +4,6 @@
         <name>Playground.ServiceHost</name>
     </assembly>
     <members>
-        <member name="T:Playground.ServiceHost.Program">
-            <summary>
-            Main program controller.
-            </summary>
-        </member>
-        <member name="M:Playground.ServiceHost.Program.Main(System.String[])">
-            <summary>
-            Main entry point.
-            </summary>
-        </member>
-        <member name="M:Playground.ServiceHost.Program.CreateHostBuilder(System.String[])">
-            <summary>
-            Create the service host builder.
-            </summary>
-            <returns>The <see cref="T:Microsoft.Extensions.Hosting.IHostBuilder"/> to run the service host.</returns>
-        </member>
         <member name="T:Playground.ServiceHost.Startup">
             <summary>
             Definition of the startup routine for the service host.
