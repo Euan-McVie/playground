@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Playground.Infrastructure.Extensions.Console</name>
+    </assembly>
+    <members>
+        <member name="T:Playground.Infrastructure.Extensions.Console.ConsoleBuilderExtensions">
+            <summary>
+            Extension methods to enable <c>Startup.cs</c> behaviour for console applications.
+            </summary>
+        </member>
+        <member name="M:Playground.Infrastructure.Extensions.Console.ConsoleBuilderExtensions.ConfigureConsoleDefaults(Microsoft.Extensions.Hosting.IHostBuilder,System.Action{Playground.Infrastructure.Extensions.Console.IConsoleBuilder})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Playground.Infrastructure.Extensions.Console.IConsoleBuilder"/> class with pre-configured defaults.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.Extensions.Hosting.IHostBuilder"/> instance to configure.</param>
+            <param name="configure">The configure callback.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.Hosting.IHostBuilder"/> for chaining.</returns>
+        </member>
+        <member name="T:Playground.Infrastructure.Extensions.Console.IConsoleBuilder">
+            <summary>
+            A builder for a console <see cref="T:Microsoft.Extensions.Hosting.IHost"/>.
+            </summary>
+        </member>
+        <member name="M:Playground.Infrastructure.Extensions.Console.IConsoleBuilder.UseStartup``1">
+            <summary>
+            Specify the startup type to be used by the console.
+            </summary>
+            <typeparam name="TStartup">The type containing the startup methods for the application.</typeparam>
+            <returns>The <see cref="T:Playground.Infrastructure.Extensions.Console.IConsoleBuilder"/>.</returns>
+        </member>
+        <member name="T:Playground.Infrastructure.Extensions.Console.IConsoleApplicationBuilder">
+            <summary>
+            Defines a class that provides the mechanisms to configure a console application.
+            </summary>
+        </member>
+        <member name="P:Playground.Infrastructure.Extensions.Console.IConsoleApplicationBuilder.ApplicationServices">
+            <summary>
+            Gets the <see cref="T:System.IServiceProvider"/> that provides access to the application's service container.
+            </summary>
+        </member>
+        <member name="M:Playground.Infrastructure.Extensions.Console.ConsoleBuilder.UseStartup``1">
+            <inheritdoc/>
+        </member>
+        <member name="T:Playground.Infrastructure.Extensions.Console.EasyConsoleExtensions">
+            <summary>
+            Extension methods to use EasyConsole as the menu system for the console application.
+            </summary>
+        </member>
+        <member name="M:Playground.Infrastructure.Extensions.Console.EasyConsoleExtensions.UseEasyConsole``1(Playground.Infrastructure.Extensions.Console.IConsoleApplicationBuilder)">
+            <summary>
+            Specify the Easy Console root menu <see cref="T:EasyConsoleCore.Program"/> to be used by the console application.
+            </summary>
+            <typeparam name="TRootMenu">The type containing the Easy Console root menu <see cref="T:EasyConsoleCore.Program"/></typeparam>
+            <param name="app">The <see cref="T:Playground.Infrastructure.Extensions.Console.IConsoleApplicationBuilder"/> to configure.</param>
+            <returns>The <see cref="T:Playground.Infrastructure.Extensions.Console.IConsoleApplicationBuilder"/>.</returns>
+        </member>
+    </members>
+</doc>
