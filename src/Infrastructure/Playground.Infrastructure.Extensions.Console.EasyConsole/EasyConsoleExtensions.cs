@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Playground.Infrastructure.Extensions.Console
+namespace Playground.Infrastructure.Extensions.Console.EasyConsole
 {
     /// <summary>
     /// Extension methods to use EasyConsole as the menu system for the console application.
@@ -24,9 +24,10 @@ namespace Playground.Infrastructure.Extensions.Console
 
             Program console = ActivatorUtilities.CreateInstance<TRootMenu>(app.ApplicationServices);
 
-            lifetime.ApplicationStarted.Register(() => {
+            lifetime.ApplicationStarted.Register(() =>
+            {
                 console.Run();
-                });
+            });
 
             return app;
         }

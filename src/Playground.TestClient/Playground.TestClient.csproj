@@ -29,6 +29,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Domains\Playground.Domains.ContractManagement\Playground.Domains.ContractManagement.csproj" />
     <ProjectReference Include="..\Infrastructure\Playground.Infrastructure.Extensions.Console\Playground.Infrastructure.Extensions.Console.csproj" />
+    <ProjectReference Include="..\Infrastructure\Playground.Infrastructure.Extensions.Console.EasyConsole\Playground.Infrastructure.Extensions.Console.EasyConsole.csproj" />
     <ProjectReference Include="..\Infrastructure\Playground.Infrastructure.Extensions.Grpc\Playground.Infrastructure.Extensions.Grpc.csproj" />
     <ProjectReference Include="..\Infrastructure\Playground.Infrastructure.Extensions.ServiceDiscovery.Consul\Playground.Infrastructure.Extensions.ServiceDiscovery.Consul.csproj" />
   </ItemGroup>

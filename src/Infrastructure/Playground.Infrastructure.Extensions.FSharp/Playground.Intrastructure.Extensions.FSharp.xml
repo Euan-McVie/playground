@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Playground.Infrastructure.Extensions.FSharp</name>
+    </assembly>
+    <members>
+        <member name="T:Playground.Infrastructure.Extensions.FSharp.FSharpOptionExtensions">
+            <summary>
+            Extension methods to aid interop with an F# <see cref="T:Microsoft.FSharp.Core.FSharpOption`1"/>.
+            </summary>
+        </member>
+        <member name="M:Playground.Infrastructure.Extensions.FSharp.FSharpOptionExtensions.ToFSharpOption``1(System.Nullable{``0})">
+            <summary>
+            Converts a <see cref="T:System.Nullable`1"/> to a <see cref="T:Microsoft.FSharp.Core.FSharpOption`1"/>.
+            </summary>
+            <typeparam name="TValue">The type of the value.</typeparam>
+            <param name="value">The <see cref="T:System.Nullable`1"/> value to convert to a <see cref="T:Microsoft.FSharp.Core.FSharpOption`1"/> option.</param>
+            <returns>A <see cref="T:Microsoft.FSharp.Core.FSharpOption`1"/> wrapping the <typeparamref name="TValue"/> value.</returns>
+        </member>
+        <member name="M:Playground.Infrastructure.Extensions.FSharp.FSharpOptionExtensions.ToFSharpOption``1(``0)">
+            <summary>
+            Wraps a <see langword="class"/> value with a <see cref="T:Microsoft.FSharp.Core.FSharpOption`1"/>. A <see langword="null"/> value is mapped to <see cref="P:Microsoft.FSharp.Core.FSharpOption`1.None"/>.
+            </summary>
+            <typeparam name="TValue">The type of the value.</typeparam>
+            <param name="value">The <see langword="class"/> value to wrap in the <see cref="T:Microsoft.FSharp.Core.FSharpOption`1"/>.</param>
+            <returns>A <see cref="M:Microsoft.FSharp.Core.FSharpOption`1.Some(`0)"/> containing the value.</returns>
+        </member>
+        <member name="M:Playground.Infrastructure.Extensions.FSharp.FSharpOptionExtensions.ToNullable``1(Microsoft.FSharp.Core.FSharpOption{``0})">
+            <summary>
+            Converts a <see cref="T:Microsoft.FSharp.Core.FSharpOption`1"/> to a <see cref="T:System.Nullable`1"/>.
+            </summary>
+            <typeparam name="TValue">The type of the value.</typeparam>
+            <param name="option">The <see cref="T:Microsoft.FSharp.Core.FSharpOption`1"/> option to convert to a <see cref="T:System.Nullable`1"/> value.</param>
+            <returns>A <see cref="T:System.Nullable`1"/> vwrapping the <typeparamref name="TValue"/> value.</returns>
+        </member>
+        <member name="T:Playground.Infrastructure.Extensions.FSharp.FSharpResultExtensions">
+            <summary>
+            Extension methods to aid interop with an F# <see cref="T:Microsoft.FSharp.Core.FSharpResult`2"/>.
+            </summary>
+        </member>
+        <member name="M:Playground.Infrastructure.Extensions.FSharp.FSharpResultExtensions.ResultFromFSharp``1(System.Object)">
+            <summary>
+            Converts a compile-time unknown <see cref="T:Microsoft.FSharp.Core.FSharpResult`2"/> into an <c>FSharpResult&lt;TResult, string&gt;</c>.
+            </summary>
+            <typeparam name="TResult">The type of result you expect.</typeparam>
+            <param name="result">An unknown instance of a <see cref="T:Microsoft.FSharp.Core.FSharpResult`2"/></param>
+            <returns>An <c>FSharpResult&lt;TResult, string&gt;</c> where <typeparamref name="TResult"/> is your expected result type and the error is a <see cref="T:System.String"/></returns>
+            <exception cref="T:System.ArgumentNullException">The result is null.</exception>
+            <exception cref="T:System.NotSupportedException">The result is not one of the supported conversions.</exception>
+        </member>
+    </members>
+</doc>

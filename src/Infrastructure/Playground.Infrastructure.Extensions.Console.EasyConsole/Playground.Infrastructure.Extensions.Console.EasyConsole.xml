@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Playground.Infrastructure.Extensions.Console.EasyConsole</name>
+    </assembly>
+    <members>
+        <member name="T:Playground.Infrastructure.Extensions.Console.EasyConsole.EasyConsoleExtensions">
+            <summary>
+            Extension methods to use EasyConsole as the menu system for the console application.
+            </summary>
+        </member>
+        <member name="M:Playground.Infrastructure.Extensions.Console.EasyConsole.EasyConsoleExtensions.UseEasyConsole``1(Playground.Infrastructure.Extensions.Console.IConsoleApplicationBuilder)">
+            <summary>
+            Specify the Easy Console root menu <see cref="T:EasyConsoleCore.Program"/> to be used by the console application.
+            </summary>
+            <typeparam name="TRootMenu">The type containing the Easy Console root menu <see cref="T:EasyConsoleCore.Program"/></typeparam>
+            <param name="app">The <see cref="T:Playground.Infrastructure.Extensions.Console.IConsoleApplicationBuilder"/> to configure.</param>
+            <returns>The <see cref="T:Playground.Infrastructure.Extensions.Console.IConsoleApplicationBuilder"/>.</returns>
+        </member>
+    </members>
+</doc>

@@ -22,7 +22,7 @@
       <ProjectReference Include="..\..\Domains\Playground.Domains.ContractManagement\Playground.Domains.ContractManagement.csproj" />
       <ProjectReference Include="..\..\Infrastructure\Playground.Infrastructure.Extensions.Akka\Playground.Infrastructure.Extensions.Akka.csproj" />
       <ProjectReference Include="..\..\Infrastructure\Playground.Infrastructure.Extensions.ServiceDiscovery\Playground.Infrastructure.Extensions.ServiceDiscovery.csproj" />
-      <ProjectReference Include="..\..\Infrastructure\Playground.Intrastructure.Extensions.FSharp\Playground.Intrastructure.Extensions.FSharp.csproj" />
+      <ProjectReference Include="..\..\Infrastructure\Playground.Infrastructure.Extensions.FSharp\Playground.Infrastructure.Extensions.FSharp.csproj" />
       <ProjectReference Include="..\Playground.Services.ContractManagement.Actors\Playground.Services.ContractManagement.Actors.fsproj" />
     </ItemGroup>
 </Project>

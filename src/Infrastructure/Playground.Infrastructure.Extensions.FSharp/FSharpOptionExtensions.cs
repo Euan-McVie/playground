@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.FSharp.Core;
 
-namespace Playground.Intrastructure.Extensions.FSharp
+namespace Playground.Infrastructure.Extensions.FSharp
 {
     /// <summary>
     /// Extension methods to aid interop with an F# <see cref="FSharpOption{T}"/>.

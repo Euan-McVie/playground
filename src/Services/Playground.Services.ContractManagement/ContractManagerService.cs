@@ -7,7 +7,7 @@ using Playground.Domains.ContractManagement.Services;
 using Playground.Infrastructure.Domain.Extensions;
 using Playground.Infrastructure.Domain.Models;
 using Playground.Infrastructure.Extensions.Akka;
-using Playground.Intrastructure.Extensions.FSharp;
+using Playground.Infrastructure.Extensions.FSharp;
 using Playground.Services.ContractManagement.Actors;
 
 namespace Playground.Services.ContractManagement

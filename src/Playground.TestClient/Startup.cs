@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Playground.Domains.ContractManagement.Services;
 using Playground.Infrastructure.Extensions.Console;
+using Playground.Infrastructure.Extensions.Console.EasyConsole;
 using Playground.Infrastructure.Extensions.Grpc;
 using Playground.Infrastructure.Services.ServiceDiscovery;
 
