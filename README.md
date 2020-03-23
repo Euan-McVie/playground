@@ -2,6 +2,7 @@
 
 This repository contains a POC "playground" for investigating new technologies.
 
+- [Concepts](#concepts)
 - [Structure](#structure)
 - [Pre-requisites](#pre-requisites)
 - [Build Steps](#build-steps)
@@ -14,6 +15,16 @@ This repository contains a POC "playground" for investigating new technologies.
   - [Shutdown](#shutdown)
 
 The [Developer Guide](docs/Developer's%20Guide.md) gives details on how to use the playground infrastructure to add your own services.
+
+## Concepts
+
+The following core concepts and technologies have been investigated and have at least a partial example of use:
+
+- gRPC code first services using [protobuf-net.Grpc](https://protobuf-net.github.io/protobuf-net.Grpc/gettingstarted)
+- [Web API apps](https://docs.microsoft.com/en-gb/aspnet/core/web-api/)
+- Service discovery mechanism using [Consul](https://www.consul.io/discovery.html)
+- [Swagger UI](https://swagger.io/tools/swagger-ui/) documented WebAPI endpoints
+- [Akka.Net](https://getakka.net/) actors in F# called by C# service wrappers.
 
 ## Structure
 
@@ -55,7 +66,7 @@ The following pre-requisites should be installed and configured:
 
 ## Try It
 
-These are the steps to try out the POC applications
+These are the steps to try out the POC applications:
 
 ### Startup
 
