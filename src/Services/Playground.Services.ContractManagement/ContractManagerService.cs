@@ -42,8 +42,7 @@ namespace Playground.Services.ContractManagement
                         default,
                         contractDetails.Price,
                         contractDetails.Volume,
-                        FSharpOption<DateTimeOffset>.None
-                    //contractDetails.TradeTimestamp.ToFSharpOption())
+                        contractDetails.TradeTimestampUTC.ToUtcDateTimeOffset().ToFSharpOption()
                     )))
                 .ConfigureAwait(false);
 

@@ -4,12 +4,24 @@
         <name>Playground.Infrastructure.Domain</name>
     </assembly>
     <members>
+        <member name="T:Playground.Infrastructure.Domain.Extensions.DateTimeExtensions">
+            <summary>
+            Extension methods for <see cref="T:System.DateTime"/>.
+            </summary>
+        </member>
+        <member name="M:Playground.Infrastructure.Domain.Extensions.DateTimeExtensions.ToUtcDateTime(System.Nullable{System.DateTime})">
+            <summary>
+            Converts a <see cref="T:System.Nullable`1"/> <see cref="T:System.DateTime"/> to a <see cref="T:System.Nullable`1"/> <see cref="T:System.DateTimeOffset"/> at UTC.
+            </summary>
+            <param name="dateTime">The <see cref="T:System.Nullable`1"/> <see cref="T:System.DateTime"/> to convert.</param>
+            <returns>A <see cref="T:System.Nullable`1"/> <see cref="T:System.DateTimeOffset"/> at UTC.</returns>
+        </member>
         <member name="T:Playground.Infrastructure.Domain.Extensions.DateTimeOffsetExtensions">
             <summary>
             Extension methods for <see cref="T:System.DateTimeOffset"/>.
             </summary>
         </member>
-        <member name="M:Playground.Infrastructure.Domain.Extensions.DateTimeOffsetExtensions.ToUtcDateTime(System.Nullable{System.DateTimeOffset})">
+        <member name="M:Playground.Infrastructure.Domain.Extensions.DateTimeOffsetExtensions.ToUtcDateTimeOffset(System.Nullable{System.DateTimeOffset})">
             <summary>
             Converts a <see cref="T:System.Nullable`1"/> <see cref="T:System.DateTimeOffset"/> to a <see cref="T:System.Nullable`1"/> <see cref="T:System.DateTime"/> at UTC.
             </summary>
