@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json;
 using EasyConsoleCore;
 using Playground.Domains.ContractManagement.Models;
 using Playground.Domains.ContractManagement.Services;
@@ -79,7 +80,10 @@ namespace Playground.TestClient
                 .CallAsync(service => service.GetContractAsync(new SingleContractRequestDTO { Id = id }))
                 .Result;
             if (success)
-                Output.WriteLine(ConsoleColor.Green, $"Successfully found contract:{Environment.NewLine}{contract}");
+            {
+                string contractString = JsonSerializer.Serialize(contract, new JsonSerializerOptions { WriteIndented = true });
+                Output.WriteLine(ConsoleColor.Green, $"Successfully found contract:{Environment.NewLine}{contractString}");
+            }
             else
                 Output.WriteLine(ConsoleColor.Red, $"Failed to find contract with error: {message}");
 
