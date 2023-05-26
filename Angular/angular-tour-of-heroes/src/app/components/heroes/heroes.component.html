@@ -1,0 +1,21 @@
+<mat-sidenav-container>
+  <mat-sidenav-content>
+    <mat-action-list>
+      <div mat-subheader id="heading">
+        <h2>My Heroes</h2>
+        <button mat-fab extended id="addHero" color="primary" type="button"
+          (click)="addHero()"><mat-icon>add</mat-icon>Add</button>
+      </div>
+      <mat-list-item *ngFor="let hero of heroes" [activated]="selectedHero?.id === hero.id">
+        <div class="listRow">
+          <button class="heroName" (click)="onSelect(hero)">{{hero.name}}</button>
+          <button mat-icon-button class="removeHero" color="warn" type="button"
+            (click)="removeHero(hero)"><mat-icon>delete</mat-icon></button>
+        </div>
+      </mat-list-item>
+    </mat-action-list>
+  </mat-sidenav-content>
+  <mat-sidenav position="end" mode="side" [opened]="!!selectedHero || newHero">
+    <app-hero-detail [heroId]="selectedHero?.id" [newHero]="newHero" (heroSaved)="clearSelected()"></app-hero-detail>
+  </mat-sidenav>
+</mat-sidenav-container>

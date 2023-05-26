@@ -1,0 +1,12 @@
+<mat-action-list>
+  <div mat-subheader id="heading">
+    <mat-form-field id="searchBox">
+      <mat-label>Hero Search</mat-label>
+      <input matInput type="search" [ngModel]="searchTerm$ | async" (ngModelChange)="searchTerm$.next($event)">
+      <button *ngIf="searchTerm$ | async" matSuffix mat-icon-button aria-label="Clear" (click)="searchTerm$.next('')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <a mat-list-item *ngFor="let hero of foundHeroes$ | async" routerLink="/heroes/{{hero.id}}">{{hero.name}}</a>
+</mat-action-list>

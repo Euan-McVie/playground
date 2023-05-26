@@ -1,0 +1,20 @@
+#heading {
+  display: flex;
+}
+
+#heading h2 {
+  margin: auto 0px;
+}
+
+#addHero {
+  margin: auto 0px;
+  transform: scale(0.7);
+}
+
+button.removeHero {
+  transform: scale(0.7);
+}
+
+.listRow {
+  display: flex;
+}

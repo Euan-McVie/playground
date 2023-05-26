@@ -1,0 +1,10 @@
+<footer *ngIf="messageService.messages.length">
+  <div id="heading">
+    <h2>Messages</h2>
+    <button mat-fab extended id="clearMessages" color="warn" type="button"
+      (click)="messageService.clear()"><mat-icon>delete</mat-icon>Clear</button>
+  </div>
+  <div id="messages">
+    <div *ngFor='let message of messageService.messages.reverse()'> {{message}} </div>
+  </div>
+</footer>
