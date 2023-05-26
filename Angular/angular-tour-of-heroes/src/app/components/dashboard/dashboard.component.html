@@ -1,0 +1,8 @@
+<h2>Top Heroes</h2>
+<div class="heroes-menu">
+  <a mat-raised-button *ngFor="let hero of heroes" type="button" color="primary" routerLink="/heroes/{{hero.id}}">
+    {{hero.name}}
+  </a>
+</div>
+<mat-divider></mat-divider>
+<app-hero-search></app-hero-search>

@@ -1,0 +1,12 @@
+<mat-toolbar>
+  <span id="title">{{title}}</span>
+  <nav mat-tab-nav-bar id="nav-bar" [tabPanel]="navPanel">
+    <a *ngFor="let link of links" mat-tab-link [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+      [active]="rla.isActive">{{link.display}}</a>
+  </nav>
+</mat-toolbar>
+<mat-tab-nav-panel #navPanel>
+  <router-outlet></router-outlet>
+</mat-tab-nav-panel>
+<mat-divider></mat-divider>
+<app-messages></app-messages>

@@ -1,0 +1,19 @@
+<mat-card *ngIf="hero" role="region" id="details">
+  <mat-card-header>
+    <mat-card-title>{{hero.name | uppercase}} Details</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form #heroForm="ngForm" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <mat-label>Hero Name</mat-label>
+        <input matInput required id="name" name="name" [(ngModel)]="hero.name" [ngModelOptions]="{ updateOn: 'change' }"
+          placeholder="name" #name="ngModel">
+        <mat-error *ngIf="name.invalid && name.hasError('required')">Name is required</mat-error>
+      </mat-form-field>
+      <div>
+        <button mat-raised-button color="primary" type="submit"
+          [disabled]="!heroForm.form.dirty ||!heroForm.form.valid">Save</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
