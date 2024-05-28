@@ -1,10 +1,8 @@
-#Login
 .\Login.ps1
 
-# Generate the VPN Client Certificates
 $certs = .\Infrastructure\Generate-Certificates.ps1
 
-# Create the resource group deployment stack
+Write-Host 'Deploying the Kafka and Flink resource group' -ForegroundColor Blue
 New-AzSubscriptionDeploymentStack `
     -Name KafkaAndFlink `
     -Location uksouth `
@@ -15,7 +13,7 @@ New-AzSubscriptionDeploymentStack `
     -Force
 
 $params = @{ vpnClientRootCert = [Convert]::ToBase64String($certs.RootCaCert.RawData) }
-# Create the shared infrastructure deployment stack
+Write-Host 'Deploying the Kafka and Flink infrastructure' -ForegroundColor Blue
 New-AzResourceGroupDeploymentStack `
     -Name Infrastructure `
     -ResourceGroupName rg-euan-kafka-and-flink `
@@ -24,3 +22,5 @@ New-AzResourceGroupDeploymentStack `
     -TemplateFile .\Infrastructure\main.bicep `
     -TemplateParameterObject $params `
     -Force
+
+Write-Host 'Deployed the Kafka and Flink infrastructure' -ForegroundColor Blue

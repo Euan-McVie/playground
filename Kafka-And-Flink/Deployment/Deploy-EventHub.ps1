@@ -1,7 +1,6 @@
-#Login
 .\Login.ps1
 
-# Create the Event Hub deployment stack
+Write-Host 'Deploying the EventHub' -ForegroundColor Blue
 New-AzResourceGroupDeploymentStack `
     -Name EventHub `
     -ResourceGroupName rg-euan-kafka-and-flink `
@@ -9,3 +8,5 @@ New-AzResourceGroupDeploymentStack `
     -DeleteAll `
     -TemplateFile .\EventHub\main.bicep `
     -Force
+
+Write-Host 'Deployed the EventHub' -ForegroundColor Blue

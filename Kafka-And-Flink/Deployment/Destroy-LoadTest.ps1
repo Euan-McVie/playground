@@ -1,9 +1,10 @@
-#Login
 .\Login.ps1
 
-# Remove the Load Testing deployment stack
+Write-Host 'Destroying Load Test' -ForegroundColor Blue
 Remove-AzResourceGroupDeploymentStack `
     -Name LoadTest `
     -ResourceGroupName rg-euan-kafka-and-flink `
     -DeleteAll `
     -Force
+
+Write-Host 'Destroyed Load Test' -ForegroundColor Blue

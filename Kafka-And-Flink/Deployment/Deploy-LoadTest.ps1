@@ -1,7 +1,6 @@
-#Login
 .\Login.ps1
 
-# Create the Load Testing deployment stack
+Write-Host 'Deploying Load Test' -ForegroundColor Blue
 New-AzResourceGroupDeploymentStack `
     -Name LoadTest `
     -ResourceGroupName rg-euan-kafka-and-flink `
@@ -9,3 +8,5 @@ New-AzResourceGroupDeploymentStack `
     -DeleteAll `
     -TemplateFile .\LoadTest\main.bicep `
     -Force
+
+Write-Host 'Deployed Load Test' -ForegroundColor Blue

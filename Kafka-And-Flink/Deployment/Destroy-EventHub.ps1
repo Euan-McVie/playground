@@ -1,9 +1,10 @@
-#Login
 .\Login.ps1
 
-# Remove the Event Hub deployment stack
+Write-Host 'Destroying the EventHub' -ForegroundColor Magenta
 Remove-AzResourceGroupDeploymentStack `
     -Name EventHub `
     -ResourceGroupName rg-euan-kafka-and-flink `
     -DeleteAll `
     -Force
+
+Write-Host 'Destroyed the EventHub' -ForegroundColor Magenta

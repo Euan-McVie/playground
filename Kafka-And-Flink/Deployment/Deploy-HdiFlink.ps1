@@ -1,7 +1,6 @@
-#Login
 .\Login.ps1
 
-# Create the Flink deployment stack
+Write-Host 'Deploying the HDInsights Flink Cluster' -ForegroundColor Blue
 New-AzResourceGroupDeploymentStack `
     -Name HdiFlink `
     -ResourceGroupName rg-euan-kafka-and-flink `
@@ -9,3 +8,5 @@ New-AzResourceGroupDeploymentStack `
     -DeleteAll `
     -TemplateFile .\HdiFlink\main.bicep `
     -Force
+
+Write-Host 'Deployed the HDInsights Flink Cluster' -ForegroundColor Blue

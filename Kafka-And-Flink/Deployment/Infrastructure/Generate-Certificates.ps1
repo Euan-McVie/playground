@@ -8,6 +8,7 @@ $rootCaCerts = Get-ChildItem -Path $certPath | Where-Object { $_.Subject -eq $ro
 
 if ($rootCaCerts) {
     $rootCaCert = $rootCaCerts[0]
+    Write-Host "Using existing root CA certificate ${rootCaCert.Subject}"
 }
 else {
     # Generate a self-signed certificate for the root CA
@@ -24,6 +25,7 @@ else {
         CertStoreLocation = $certPath
     }
     $rootCaCert = New-SelfSignedCertificate @rootCaParams
+    Write-Host "Using new root CA certificate ${rootCaCert.Subject}"
 }
 
 # Get Existing Client Certificate if exists
@@ -31,6 +33,7 @@ $clientCerts = Get-ChildItem -Path $certPath | Where-Object { $_.Subject -eq $cl
 
 if ($clientCerts) {
     $clientCert = $clientCerts[0]
+    Write-Host "Using existing client certificate ${clientCert.Subject}"
 }
 if (!$clientCerts) {
     # Generate a self-signed certificate for client authentication
@@ -48,6 +51,7 @@ if (!$clientCerts) {
         TextExtension     = @('2.5.29.37={text}1.3.6.1.5.5.7.3.2')
     }
     $clientCert = New-SelfSignedCertificate @clientCertParams
+    Write-Host "Using new client certificate ${clientCert.Subject}"
 }
 
 # Export the certificates
