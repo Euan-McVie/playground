@@ -24,13 +24,13 @@ resource virtualNetwork 'Microsoft.Network/virtualNetworks@2023-09-01' = {
       {
         name: 'flink'
         properties: {
-          addressPrefix: '10.0.2.0/23'
+          addressPrefix: '10.0.4.0/22'
         }
       }
       {
         name: 'GatewaySubnet'
         properties: {
-          addressPrefix: '10.0.4.0/24'
+          addressPrefix: '10.0.20.0/24'
         }
       }
     ]
@@ -45,6 +45,28 @@ resource privateServiceBusDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01'
 resource privateServiceBusDnsZoneVirtualNetworkLink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
   parent: privateServiceBusDnsZone
   name: 'pl-servicebus-${virtualNetwork.name}'
+  location: 'global'
+  properties: {
+    registrationEnabled: false
+    virtualNetwork: {
+      id: virtualNetwork.id
+    }
+  }
+}
+
+resource privateBlobDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' = {
+  name: 'privatelink.blob.${environment().suffixes.storage}'
+  location: 'global'
+}
+
+resource privateDfsDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' = {
+  name: 'privatelink.dfs.${environment().suffixes.storage}'
+  location: 'global'
+}
+
+resource privateDfsDnsZoneVirtualNetworkLink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
+  parent: privateDfsDnsZone
+  name: 'pl-dfs-${virtualNetwork.name}'
   location: 'global'
   properties: {
     registrationEnabled: false

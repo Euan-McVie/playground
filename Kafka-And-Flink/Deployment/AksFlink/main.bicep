@@ -17,6 +17,26 @@ resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2020-10
   name: 'log-${resourceSuffix}'
 }
 
+resource networkContributorRole 'Microsoft.Authorization/roleDefinitions@2022-04-01' existing = {
+  name: '4d97b98b-1d4f-4787-a291-c67834d212e7'
+  scope: subscription()
+}
+
+resource flinkManagedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
+  name: 'id-flink-${resourceSuffix}'
+  location: location
+}
+
+resource subnetRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  name: guid(flinkManagedIdentity.id, flinkSubnet.id)
+  scope: flinkSubnet
+  properties: {
+    roleDefinitionId: networkContributorRole.id
+    principalId: flinkManagedIdentity.properties.principalId
+    principalType: 'ServicePrincipal'
+  }
+}
+
 resource aksCluster 'Microsoft.ContainerService/managedClusters@2024-01-01' = {
   name: 'flink-aks-${resourceSuffix}'
   location: location
@@ -25,7 +45,10 @@ resource aksCluster 'Microsoft.ContainerService/managedClusters@2024-01-01' = {
     tier: 'Free'
   }
   identity: {
-    type: 'SystemAssigned'
+    type: 'UserAssigned'
+    userAssignedIdentities: {
+      '${flinkManagedIdentity.id}': {}
+    }
   }
   properties: {
     kubernetesVersion: '1.28.5'
@@ -80,7 +103,7 @@ resource aksCluster 'Microsoft.ContainerService/managedClusters@2024-01-01' = {
       }
     ]
     apiServerAccessProfile: {
-      enablePrivateCluster: true
+      enablePrivateCluster: false
     }
     addonProfiles: {
       azurePolicy: {
@@ -104,78 +127,6 @@ resource aksCluster 'Microsoft.ContainerService/managedClusters@2024-01-01' = {
     }
   }
 }
-
-resource networkContributorRole 'Microsoft.Authorization/roleDefinitions@2022-04-01' existing = {
-  name: '4d97b98b-1d4f-4787-a291-c67834d212e7'
-  scope: subscription()
-}
-
-resource subnetRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(aksCluster.id, flinkSubnet.id)
-  scope: flinkSubnet
-  properties: {
-    roleDefinitionId: networkContributorRole.id
-    principalId: aksCluster.identity.principalId
-    principalType: 'ServicePrincipal'
-  }
-}
-
-resource privateEndpoint 'Microsoft.Network/privateEndpoints@2021-02-01' = {
-  name: 'pep-${aksCluster.name}'
-  location: location
-  properties: {
-    subnet: {
-      id: flinkSubnet.id
-    }
-    privateLinkServiceConnections: [
-      {
-        name: 'pl-${aksCluster.name}'
-        properties: {
-          privateLinkServiceId: aksCluster.id
-          groupIds: [
-            'management'
-          ]
-        }
-      }
-    ]
-  }
-}
-
-/* var managedClusterDnsZone = '.privatelink.${location}.azmk8s.io'
-
-resource privateAksDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' = {
-  name: managedClusterDnsZone.name
-  location: 'global'
-}
-
-resource privateAksDnsZoneVirtualNetworkLink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
-  parent: privateAksDnsZone
-  name: 'pl-aks-${virtualNetwork.name}'
-  location: 'global'
-  properties: {
-    registrationEnabled: false
-    virtualNetwork: {
-      id: virtualNetwork.id
-    }
-  }
-}
-
-
-resource privateEndpointDnsGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2023-09-01' = {
-  parent: privateEndpoint
-  name: 'aksDnsGroup'
-  properties: {
-    privateDnsZoneConfigs: [
-      {
-        name: 'dns-${aksCluster.name}'
-        properties: {
-          privateDnsZoneId: privateAksDnsZone.id
-        }
-      }
-    ]
-  }
-}
-*/
 
 resource logCollection 'Microsoft.Insights/dataCollectionRules@2022-06-01' = {
   name: 'ci-${aksCluster.name}'

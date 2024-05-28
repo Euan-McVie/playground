@@ -4,17 +4,31 @@ var common = loadJsonContent('../common.json')
 var resourceSuffix = common.resourceSuffix
 var pdDevSecurityGroupId = common.pdDevSecurityGroupId
 
+resource blobDataOwnerRole 'Microsoft.Authorization/roleDefinitions@2022-04-01' existing = {
+  name: 'b7e6dc6d-f1e8-4753-8033-0f276bb0955b'
+  scope: subscription()
+}
+
 resource virtualNetwork 'Microsoft.Network/virtualNetworks@2023-09-01' existing = {
   name: 'vnet-${resourceSuffix}'
 }
 
 resource defaultSubnet 'Microsoft.Network/virtualNetworks/subnets@2023-09-01' existing = {
-  name: 'default'
+  name: 'flink'
+  parent: virtualNetwork
+}
+
+resource flinkSubnet 'Microsoft.Network/virtualNetworks/subnets@2023-09-01' existing = {
+  name: 'flink'
   parent: virtualNetwork
 }
 
 resource privateBlobDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' existing = {
   name: 'privatelink.blob.${environment().suffixes.storage}'
+}
+
+resource privateDfsDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' existing = {
+  name: 'privatelink.dfs.${environment().suffixes.storage}'
 }
 
 resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2020-10-01' existing = {
@@ -32,7 +46,7 @@ resource hdiClusterPool 'Microsoft.HDInsight/clusterpools@2023-11-01-preview' = 
       vmSize: 'Standard_F4s_v2'
     }
     networkProfile: {
-      subnetId: defaultSubnet.id
+      subnetId: flinkSubnet.id
       outboundType: 'loadBalancer'
       enablePrivateApiServer: true
     }
@@ -53,7 +67,7 @@ resource flinkStorage 'Microsoft.Storage/storageAccounts@2021-04-01' = {
   properties: {
     accessTier: 'Hot'
     minimumTlsVersion: 'TLS1_2'
-    allowBlobPublicAccess: false
+    allowBlobPublicAccess: true
     isHnsEnabled: true
     supportsHttpsTrafficOnly: true
     allowSharedKeyAccess: false
@@ -63,8 +77,8 @@ resource flinkStorage 'Microsoft.Storage/storageAccounts@2021-04-01' = {
   }
 }
 
-resource privateEndpoint 'Microsoft.Network/privateEndpoints@2021-02-01' = {
-  name: 'pep-${flinkStorage.name}'
+resource blobPrivateEndpoint 'Microsoft.Network/privateEndpoints@2021-02-01' = {
+  name: 'pep-blob-${flinkStorage.name}'
   location: location
   properties: {
     subnet: {
@@ -72,7 +86,7 @@ resource privateEndpoint 'Microsoft.Network/privateEndpoints@2021-02-01' = {
     }
     privateLinkServiceConnections: [
       {
-        name: 'pl-${flinkStorage.name}'
+        name: 'pl-blob-${flinkStorage.name}'
         properties: {
           privateLinkServiceId: flinkStorage.id
           groupIds: [
@@ -84,15 +98,51 @@ resource privateEndpoint 'Microsoft.Network/privateEndpoints@2021-02-01' = {
   }
 }
 
-resource privateEndpointDnsGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2023-09-01' = {
-  parent: privateEndpoint
-  name: 'flinkStorageDnsGroup'
+resource dfsPrivateEndpoint 'Microsoft.Network/privateEndpoints@2021-02-01' = {
+  name: 'pep-dfs-${flinkStorage.name}'
+  location: location
+  properties: {
+    subnet: {
+      id: defaultSubnet.id
+    }
+    privateLinkServiceConnections: [
+      {
+        name: 'pl-dfs-${flinkStorage.name}'
+        properties: {
+          privateLinkServiceId: flinkStorage.id
+          groupIds: [
+            'dfs'
+          ]
+        }
+      }
+    ]
+  }
+}
+
+resource blobPrivateEndpointDnsGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2023-09-01' = {
+  parent: blobPrivateEndpoint
+  name: 'privateEndpointDnsGroup'
   properties: {
     privateDnsZoneConfigs: [
       {
-        name: 'dns-${flinkStorage.name}'
+        name: 'dns-blob-${flinkStorage.name}'
         properties: {
           privateDnsZoneId: privateBlobDnsZone.id
+        }
+      }
+    ]
+  }
+}
+
+resource dfsPrivateEndpointDnsGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2023-09-01' = {
+  parent: dfsPrivateEndpoint
+  name: 'privateEndpointDnsGroup'
+  properties: {
+    privateDnsZoneConfigs: [
+      {
+        name: 'dns-dfs-${flinkStorage.name}'
+        properties: {
+          privateDnsZoneId: privateDfsDnsZone.id
         }
       }
     ]
@@ -123,10 +173,16 @@ resource flinkStorageRoleAssignment 'Microsoft.Authorization/roleAssignments@202
   scope: flinkStorage
   properties: {
     principalId: flinkManagedIdentity.properties.principalId
-    roleDefinitionId: subscriptionResourceId(
-      'Microsoft.Authorization/roleDefinitions',
-      'b7e6dc6d-f1e8-4753-8033-0f276bb0955b'
-    )
+    roleDefinitionId: blobDataOwnerRole.id
+  }
+}
+
+resource devStorageRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  name: guid(flinkStorage.id, pdDevSecurityGroupId)
+  scope: flinkStorage
+  properties: {
+    principalId: pdDevSecurityGroupId
+    roleDefinitionId: blobDataOwnerRole.id
   }
 }
 
@@ -140,12 +196,12 @@ resource flinkCluster 'Microsoft.HDInsight/clusterpools/clusters@2023-11-01-prev
       nodes: [
         {
           type: 'head'
-          vmSize: 'Standard_E8as_v5'
+          vmSize: 'Standard_D8d_v5'
           count: 2
         }
         {
           type: 'worker'
-          vmSize: 'Standard_E8as_v5'
+          vmSize: 'Standard_D8d_v5'
           count: 3
         }
       ]
@@ -184,7 +240,7 @@ resource flinkCluster 'Microsoft.HDInsight/clusterpools/clusters@2023-11-01-prev
           memory: 2000
         }
         storage: {
-          storageUri: 'abfs://${flinkContainer.name}@${flinkStorage.name}.blob.${environment().suffixes.storage}'
+          storageUri: 'abfss://${flinkContainer.name}@${flinkStorage.name}.dfs.${environment().suffixes.storage}'
         }
       }
     }
