@@ -73,7 +73,7 @@ resource privateEndpointDnsGroup 'Microsoft.Network/privateEndpoints/privateDnsZ
 
 resource eventHubInput 'Microsoft.EventHub/namespaces/eventhubs@2021-11-01' = {
   parent: namespace
-  name: 'evh-input'
+  name: 'public-orders'
   properties: {
     messageRetentionInDays: 7
     partitionCount: 2
@@ -83,7 +83,7 @@ resource eventHubInput 'Microsoft.EventHub/namespaces/eventhubs@2021-11-01' = {
 
 resource eventHubOutput 'Microsoft.EventHub/namespaces/eventhubs@2021-11-01' = {
   parent: namespace
-  name: 'evh-output'
+  name: 'market-depth'
   properties: {
     messageRetentionInDays: 7
     partitionCount: 2

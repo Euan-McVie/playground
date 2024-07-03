@@ -331,3 +331,6 @@ ASALocalRun/
 
 # ignore java build
 target/
+
+# ignore python venv
+venv/
