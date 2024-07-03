@@ -5,7 +5,7 @@ New-AzResourceGroupDeploymentStack `
     -Name LoadTest `
     -ResourceGroupName rg-euan-kafka-and-flink `
     -DenySettingsMode DenyDelete `
-    -DeleteAll `
+    -ActionOnUnmanage DeleteAll `
     -TemplateFile .\LoadTest\main.bicep `
     -Force
 

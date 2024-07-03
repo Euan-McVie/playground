@@ -5,7 +5,7 @@ New-AzResourceGroupDeploymentStack `
     -Name EventHub `
     -ResourceGroupName rg-euan-kafka-and-flink `
     -DenySettingsMode DenyDelete `
-    -DeleteAll `
+    -ActionOnUnmanage DeleteAll `
     -TemplateFile .\EventHub\main.bicep `
     -Force
 

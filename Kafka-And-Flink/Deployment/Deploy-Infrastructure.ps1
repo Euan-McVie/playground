@@ -7,7 +7,7 @@ New-AzSubscriptionDeploymentStack `
     -Name KafkaAndFlink `
     -Location uksouth `
     -DenySettingsMode DenyDelete `
-    -DeleteAll `
+    -ActionOnUnmanage DeleteAll `
     -TemplateFile .\Infrastructure\resourceGroup.bicep `
     -TemplateParameterFile .\Infrastructure\resourceGroup.bicepparam `
     -Force
@@ -18,7 +18,7 @@ New-AzResourceGroupDeploymentStack `
     -Name Infrastructure `
     -ResourceGroupName rg-euan-kafka-and-flink `
     -DenySettingsMode DenyDelete `
-    -DeleteAll `
+    -ActionOnUnmanage DeleteAll `
     -TemplateFile .\Infrastructure\main.bicep `
     -TemplateParameterObject $params `
     -Force

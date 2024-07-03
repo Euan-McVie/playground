@@ -4,7 +4,7 @@ Write-Host 'Destroying the HDInsights Flink Cluster' -ForegroundColor Magenta
 Remove-AzResourceGroupDeploymentStack `
     -Name HdiFlink `
     -ResourceGroupName rg-euan-kafka-and-flink `
-    -DeleteAll `
+    -ActionOnUnmanage DeleteAll `
     -Force
 
 Write-Host 'Destroyed the HDInsights Flink Cluster' -ForegroundColor Magenta

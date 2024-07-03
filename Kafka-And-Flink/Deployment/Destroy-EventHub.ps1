@@ -4,7 +4,7 @@ Write-Host 'Destroying the EventHub' -ForegroundColor Magenta
 Remove-AzResourceGroupDeploymentStack `
     -Name EventHub `
     -ResourceGroupName rg-euan-kafka-and-flink `
-    -DeleteAll `
+    -ActionOnUnmanage DeleteAll `
     -Force
 
 Write-Host 'Destroyed the EventHub' -ForegroundColor Magenta

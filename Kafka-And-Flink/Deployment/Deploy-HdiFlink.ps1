@@ -5,7 +5,7 @@ New-AzResourceGroupDeploymentStack `
     -Name HdiFlink `
     -ResourceGroupName rg-euan-kafka-and-flink `
     -DenySettingsMode DenyDelete `
-    -DeleteAll `
+    -ActionOnUnmanage DeleteAll `
     -TemplateFile .\HdiFlink\main.bicep `
     -Force
 

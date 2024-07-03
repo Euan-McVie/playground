@@ -5,7 +5,7 @@ New-AzResourceGroupDeploymentStack `
     -Name AksFlink `
     -ResourceGroupName rg-euan-kafka-and-flink `
     -DenySettingsMode DenyDelete `
-    -DeleteAll `
+    -ActionOnUnmanage DeleteAll `
     -TemplateFile .\AksFlink\main.bicep `
     -Force
 
