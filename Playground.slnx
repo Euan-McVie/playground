@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Benchmarks\Benchmarks.csproj" />
+  <Properties Name="Visual Studio">
+    <Property Name="OpenWith" Value="17" />
+  </Properties>
+</Solution>
