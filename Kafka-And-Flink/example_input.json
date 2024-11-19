@@ -1,0 +1,14 @@
+{
+  "tradingVenueId": "TradingVenue-EPEX",
+  "deliveryAreaId": "DeliveryArea-DE-TRANSNETBW",
+  "extContractId": "2100132",
+  "extOrderId": "480586240",
+  "revision": 17497,
+  "side": "Sell",
+  "price": 7506,
+  "quantity": 66,
+  "createdAt": "2024-08-22T13:02:43.856Z",
+  "orderBookUpdatedAt": "2024-08-23T12:04:44.017Z",
+  "state": "ACTI",
+  "adapterReceivedAt": "2024-08-23T12:04:44.117627Z"
+}

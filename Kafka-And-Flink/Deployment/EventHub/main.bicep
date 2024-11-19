@@ -29,9 +29,21 @@ resource namespace 'Microsoft.EventHub/namespaces@2023-01-01-preview' = {
     isAutoInflateEnabled: false
     maximumThroughputUnits: 0
     minimumTlsVersion: '1.2'
-    publicNetworkAccess: 'Disabled'
-    disableLocalAuth: true
+    publicNetworkAccess: 'Enabled'
+    disableLocalAuth: false
     zoneRedundant: false
+  }
+}
+
+resource namespaceNetworkRules 'Microsoft.EventHub/namespaces/networkrulesets@2024-01-01' = {
+  parent: namespace
+  name: 'default'
+  properties: {
+    publicNetworkAccess: 'Enabled'
+    defaultAction: 'Allow'
+    virtualNetworkRules: []
+    ipRules: []
+    trustedServiceAccessEnabled: false
   }
 }
 
@@ -71,7 +83,7 @@ resource privateEndpointDnsGroup 'Microsoft.Network/privateEndpoints/privateDnsZ
   }
 }
 
-resource eventHubInput 'Microsoft.EventHub/namespaces/eventhubs@2021-11-01' = {
+resource eventHubInput 'Microsoft.EventHub/namespaces/eventhubs@2024-01-01' = {
   parent: namespace
   name: 'public-orders'
   properties: {
@@ -81,12 +93,37 @@ resource eventHubInput 'Microsoft.EventHub/namespaces/eventhubs@2021-11-01' = {
   }
 }
 
-resource eventHubOutput 'Microsoft.EventHub/namespaces/eventhubs@2021-11-01' = {
+resource eventHubInputMarketDepthCalculatorConsumerGroup 'Microsoft.EventHub/namespaces/eventhubs/consumergroups@2024-01-01' = {
+  parent: eventHubInput
+  name: 'market_depth_calculator'
+}
+
+resource eventHubInputMarketDepthCalculatorSasKey 'Microsoft.EventHub/namespaces/eventhubs/authorizationrules@2024-01-01' = {
+  parent: eventHubInput
+  name: 'market_depth_calculator'
+  properties: {
+    rights: [
+      'Listen'
+    ]
+  }
+}
+
+resource eventHubOutput 'Microsoft.EventHub/namespaces/eventhubs@2024-01-01' = {
   parent: namespace
   name: 'market-depth'
   properties: {
     messageRetentionInDays: 7
     partitionCount: 2
     status: 'Active'
+  }
+}
+
+resource eventHubOutputMarketDepthCalculatorSasKey 'Microsoft.EventHub/namespaces/eventhubs/authorizationrules@2024-01-01' = {
+  parent: eventHubOutput
+  name: 'market_depth_calculator'
+  properties: {
+    rights: [
+      'Send'
+    ]
   }
 }
