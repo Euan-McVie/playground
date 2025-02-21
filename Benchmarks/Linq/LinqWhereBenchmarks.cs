@@ -2,10 +2,10 @@
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Engines;
 
-namespace Benchmarks;
+namespace Benchmarks.Linq;
 
 [MemoryDiagnoser]
-public class LinqWhere
+public class LinqWhereBenchmarks
 {
     private readonly int[] _testData = Enumerable.Range(1, 1_000).ToArray();
 

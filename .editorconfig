@@ -42,14 +42,14 @@ dotnet_style_qualification_for_method = false:suggestion
 dotnet_style_qualification_for_event = false:suggestion
 
 # Types: use keywords instead of BCL types, and permit var only when the type is clear
-csharp_style_var_for_built_in_types = false:suggestion
-csharp_style_var_when_type_is_apparent = true:none
-csharp_style_var_elsewhere = false:suggestion
+csharp_style_var_for_built_in_types = false:warning
+csharp_style_var_when_type_is_apparent = true:warning
+csharp_style_var_elsewhere = true:warning
 dotnet_style_predefined_type_for_locals_parameters_members = true:suggestion
 dotnet_style_predefined_type_for_member_access = true:suggestion
 
 # name all constant fields using PascalCase
-dotnet_naming_rule.constant_fields_should_be_pascal_case.severity = suggestion
+dotnet_naming_rule.constant_fields_should_be_pascal_case.severity = warning
 dotnet_naming_rule.constant_fields_should_be_pascal_case.symbols  = constant_fields
 dotnet_naming_rule.constant_fields_should_be_pascal_case.style    = pascal_case_style
 dotnet_naming_symbols.constant_fields.applicable_kinds   = field
@@ -57,7 +57,7 @@ dotnet_naming_symbols.constant_fields.required_modifiers = const
 dotnet_naming_style.pascal_case_style.capitalization = pascal_case
 
 # static fields should have s_ prefix
-dotnet_naming_rule.static_fields_should_have_prefix.severity = suggestion
+dotnet_naming_rule.static_fields_should_have_prefix.severity = warning
 dotnet_naming_rule.static_fields_should_have_prefix.symbols  = static_fields
 dotnet_naming_rule.static_fields_should_have_prefix.style    = static_prefix_style
 dotnet_naming_symbols.static_fields.applicable_kinds   = field
@@ -67,7 +67,7 @@ dotnet_naming_style.static_prefix_style.required_prefix = s_
 dotnet_naming_style.static_prefix_style.capitalization = camel_case
 
 # internal and private fields should be _camelCase
-dotnet_naming_rule.camel_case_for_private_internal_fields.severity = suggestion
+dotnet_naming_rule.camel_case_for_private_internal_fields.severity = warning
 dotnet_naming_rule.camel_case_for_private_internal_fields.symbols  = private_internal_fields
 dotnet_naming_rule.camel_case_for_private_internal_fields.style    = camel_case_underscore_style
 dotnet_naming_symbols.private_internal_fields.applicable_kinds = field
@@ -84,6 +84,7 @@ csharp_preserve_single_line_statements = true:none
 csharp_prefer_static_local_function = true:suggestion
 csharp_prefer_simple_using_statement = false:none
 csharp_style_prefer_switch_expression = true:suggestion
+csharp_style_namespace_declarations = file_scoped:suggestion
 
 # Code quality
 dotnet_style_readonly_field = true:suggestion
@@ -152,15 +153,32 @@ csharp_space_between_parentheses = false
 csharp_space_between_square_brackets = false
 
 # Analyzers
-dotnet_code_quality.ca1802.api_surface = private, internal
-# SA1633: File should have header - Not required in my playground
-dotnet_diagnostic.SA1633.severity = none
-# SA1200: Using directives should be placed correctly - Superceded by csharp_using_directive_placement
-dotnet_diagnostic.SA1200.severity = none
+# CA1303: Do not pass literals as localized parameters - Not localizing strings in the playground
+dotnet_diagnostic.CA1303.severity = none
+# CA1515: Consider making public types internal - Benchmark.NET types are public by design
+dotnet_diagnostic.CA1515.severity = none
+# CS1591: Missing XML comment for publicly visible type or member
+dotnet_diagnostic.CS1591.severity = none
+# CA1812: Avoid uninstantiated internal classes - Commonly used by tests in the playground as created via DI, reflection, etc.
+dotnet_code_quality.CA1812.severity = none
+# CA1822: Mark members as static - Benchmark.NET members are public by design
+dotnet_diagnostic.CA1822.severity = none
+# SA0001: XML comment analysis is disabled
+dotnet_diagnostic.SA0001.severity = none
 # SA1101: Prefix local calls with this - Superceded by dotnet_style_qualification_for_ rules
 dotnet_diagnostic.SA1101.severity = none
+# SA1200: Using directives should be placed correctly - Superceded by csharp_using_directive_placement
+dotnet_diagnostic.SA1200.severity = none
+# SA1308: Variable names should not be prefixed - Superceded by dotnet_naming_style rules
+dotnet_diagnostic.SA1308.severity = none
 # SA1309: Field names should not begin with underscore - Superceded by dotnet_naming_style rules
 dotnet_diagnostic.SA1309.severity = none
+# SA1311: Static readonly fields should begin with upper-case letter - Superceded by dotnet_naming_style rules
+dotnet_diagnostic.SA1311.severity = none
+# SA1600: Elements should be documented
+dotnet_diagnostic.SA1600.severity = none
+# SA1633: File should have header - Not required in my playground
+dotnet_diagnostic.SA1633.severity = none
 
 # JSON files
 [*.json]

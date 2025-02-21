@@ -1,0 +1,4 @@
+﻿{
+  Foo2: Bar,
+  Foo1: Bar
+}

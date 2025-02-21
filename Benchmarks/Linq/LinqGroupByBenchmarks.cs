@@ -1,10 +1,10 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Engines;
 
-namespace Benchmarks;
+namespace Benchmarks.Linq;
 
 [MemoryDiagnoser]
-public class LinqGroupBy
+public class LinqGroupByBenchmarks
 {
     private readonly (int A, int B)[] _testData = Enumerable
         .Range(1, 1_000)

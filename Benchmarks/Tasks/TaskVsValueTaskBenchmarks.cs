@@ -1,12 +1,12 @@
 ﻿using System.Runtime.CompilerServices;
 using BenchmarkDotNet.Attributes;
 
-namespace Benchmarks;
+namespace Benchmarks.Tasks;
 
 [MemoryDiagnoser]
-public class TaskVsValueTask
+public class TaskVsValueTaskBenchmarks
 {
-    [Params(1000, 4000, 10_000)]
+    [Params(1_000, 4_000, 10_000)]
     public int TaskCount { get; set; }
 
     private bool AlwaysTrue { get; } = true;
@@ -25,7 +25,7 @@ public class TaskVsValueTask
     {
         for (int i = 0; i < TaskCount; i++)
         {
-            await SyncTaskOp().ConfigureAwait(false);
+            await AsyncTaskOp().ConfigureAwait(false);
         }
     }
 
