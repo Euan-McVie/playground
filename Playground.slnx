@@ -1,8 +1,9 @@
 <Solution>
-  <Folder Name="/Solution Items/" Id="d4e9b890-a4af-43b4-b72b-227c18ab1c9a">
-    <File Path=".editorconfig" />
-    <File Path="Directory.Build.props" />
-    <File Path="Directory.Packages.props" />
+  <Folder Name="/HybridCache/">
+    <Project Path="HybridCache/HybridCache.ApiService/HybridCache.ApiService.csproj" />
+    <Project Path="HybridCache/HybridCache.AppHost/HybridCache.AppHost.csproj" />
+    <Project Path="HybridCache/HybridCache.ServiceDefaults/HybridCache.ServiceDefaults.csproj" />
+    <Project Path="HybridCache/HybridCache.Web/HybridCache.Web.csproj" />
   </Folder>
   <Project Path="Benchmarks\Benchmarks.csproj" />
   <Project Path="Libraries/Libraries.csproj" Id="f1aee505-dd7c-4d8c-b789-9a5ff44d23a0" />
