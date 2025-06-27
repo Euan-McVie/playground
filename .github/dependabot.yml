@@ -18,11 +18,15 @@ updates:
     groups:
       minor-and-patch:
         applies-to: version-updates
+        patterns:
+          - "*"
         update-types:
           - "minor"
           - "patch"
       major-versions:
         applies-to: version-updates
+        patterns:
+          - "*"
         update-types:
           - "major"
       security:
