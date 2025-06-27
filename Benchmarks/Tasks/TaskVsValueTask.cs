@@ -4,7 +4,7 @@ using BenchmarkDotNet.Attributes;
 namespace Benchmarks.Tasks;
 
 [MemoryDiagnoser]
-public class TaskVsValueTaskBenchmarks
+public class TaskVsValueTask
 {
     [Params(1_000, 4_000, 10_000)]
     public int TaskCount { get; set; }

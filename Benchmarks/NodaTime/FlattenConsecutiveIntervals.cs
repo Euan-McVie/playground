@@ -12,7 +12,7 @@ namespace Benchmarks.NodaTime;
 [SimpleJob(RuntimeMoniker.Net60)]
 [SimpleJob(RuntimeMoniker.Net80)]
 [SimpleJob(RuntimeMoniker.Net90)]
-public class FlattenConsecutiveIntervalsBenchmarks
+public class FlattenConsecutiveIntervals
 {
     private static readonly Instant s_now = SystemClock.Instance.GetCurrentInstant();
     private readonly Consumer _consumer = new();
@@ -48,8 +48,8 @@ public class FlattenConsecutiveIntervalsBenchmarks
     }
 
     [Benchmark]
-    public void FlattenConsecutiveIntervals() => _testData.FlattenConsecutive().Consume(_consumer);
+    public void FlattenConsecutiveIntervals1() => _testData.FlattenConsecutive().Consume(_consumer);
 
-    // [Benchmark]
+    [Benchmark]
     public void FlattenConsecutiveIntervals2() => _testData.FlattenConsecutive2().Consume(_consumer);
 }
