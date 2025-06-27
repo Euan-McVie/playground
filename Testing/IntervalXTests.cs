@@ -1,8 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
-using FluentAssertions;
 using Libraries.NodaTime;
 using NodaTime;
-using Xunit;
+using Shouldly;
 
 namespace Testing;
 
@@ -37,7 +36,7 @@ public class IntervalXTests
         var result = _givenIntervals.FlattenConsecutive();
 
         // Assert
-        result.Should().BeEquivalentTo(_expectedIntervals);
+        result.ShouldBe(_expectedIntervals);
     }
 
     [Fact]
@@ -47,6 +46,6 @@ public class IntervalXTests
         var result = _givenIntervals.FlattenConsecutive2();
 
         // Assert
-        result.Should().BeEquivalentTo(_expectedIntervals);
+        result.ShouldBe(_expectedIntervals);
     }
 }
