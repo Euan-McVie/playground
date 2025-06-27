@@ -31,3 +31,5 @@ updates:
           - "major"
       security:
         applies-to: security-updates
+        patterns:
+          - "*"
