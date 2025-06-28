@@ -20,8 +20,8 @@
 	//		}
 	// }
 
-	// Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": ". ./.devcontainer/postCreateCommand.sh",
+	"updateContentCommand": "sudo apt-get update && sudo apt-get install -y aspnetcore-runtime-8.0",
+  "postCreateCommand": "dotnet restore",
 	"postStartCommand": "dotnet dev-certs https --trust",
 
 	// Configure tool-specific properties.
