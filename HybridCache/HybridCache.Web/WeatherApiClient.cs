@@ -7,27 +7,41 @@ public class WeatherApiClient(HttpClient httpClient)
 {
     public async Task<(CityWeatherForecast[] Forecasts, DateTimeOffset LastUpdated)> GetWeatherAsync(int maxItems = 10, CancellationToken cancellationToken = default)
     {
-        List<CityWeatherForecast>? forecasts = null;
+        List<WeatherForecast> forecasts = [];
 
         await foreach (var forecast in httpClient.GetFromJsonAsAsyncEnumerable<WeatherForecast>("/weather-forecast", cancellationToken).ConfigureAwait(false))
         {
-            if (forecasts?.Count >= maxItems)
+            if (forecasts.Count >= maxItems)
             {
                 break;
             }
 
             if (forecast is not null)
             {
-                forecasts ??= [];
-                forecasts.Add(new CityWeatherForecast(
-                    CityName: "Unknown",
-                    Date: forecast.Date,
-                    TemperatureC: forecast.TemperatureC,
-                    TemperatureF: forecast.TemperatureF,
-                    Summary: forecast.Summary));
+                forecasts.Add(forecast);
             }
         }
 
-        return (forecasts?.ToArray() ?? [], DateTimeOffset.Now);
+        var cityForecasts = await Task.WhenAll(
+            forecasts.Select(async forecast =>
+            {
+                var city = await GetCityAsync(forecast.CityId, cancellationToken).ConfigureAwait(false);
+                return new CityWeatherForecast(
+                    city.Name,
+                    forecast.Date,
+                    forecast.TemperatureC,
+                    forecast.TemperatureF,
+                    forecast.Summary);
+            })).ConfigureAwait(false);
+
+        return (cityForecasts, DateTimeOffset.Now);
+    }
+
+    private async Task<City> GetCityAsync(long id, CancellationToken cancellationToken)
+    {
+        return await httpClient
+            .GetFromJsonAsync<City>($"/cities/{id}", cancellationToken)
+            .ConfigureAwait(false)
+            ?? new City(id, "Unknown");
     }
 }

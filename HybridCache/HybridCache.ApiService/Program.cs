@@ -1,3 +1,4 @@
+using System.Collections.Frozen;
 using System.Security.Cryptography;
 using HybridCache.ApiModels;
 using HybridCache.ServiceDefaults;
@@ -16,7 +17,12 @@ var app = builder.Build();
 app.UseExceptionHandler();
 
 string[] summaries = ["Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"];
-City[] cities = [new City(1, "Edinburgh"), new City(2, "Glasgow"), new City(3, "Aberdeen")];
+var cities = new Dictionary<long, City>()
+{
+    { 1, new City(1, "Edinburgh") },
+    { 2, new City(2, "Glasgow") },
+    { 3, new City(3, "Aberdeen") },
+}.ToFrozenDictionary();
 
 app.MapGet("/weather-forecast", async () =>
 {
@@ -28,7 +34,7 @@ app.MapGet("/weather-forecast", async () =>
             .Range(1, 3)
             .Select(index =>
                 new WeatherForecast(
-                    city.Id,
+                    city.Key,
                     DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
                     RandomNumberGenerator.GetInt32(-20, 55),
                     summaries[RandomNumberGenerator.GetInt32(summaries.Length)])))
@@ -37,6 +43,20 @@ app.MapGet("/weather-forecast", async () =>
     return forecasts;
 })
 .WithName("GetWeatherForecast");
+
+app.MapGet("/cities/{id}", async (long id) =>
+{
+    // Simulate a delay to mimic a real-world scenario.
+    await Task.Delay(5000).ConfigureAwait(false);
+
+    if (cities.TryGetValue(id, out var city))
+    {
+        return Results.Ok(city);
+    }
+
+    return Results.NotFound();
+})
+.WithName("GetCities");
 
 app.MapDefaultEndpoints();
 
