@@ -17,12 +17,14 @@
 }
 else
 {
+    <h5>Last Updated: @lastUpdated.ToString("u")</h5>
     <table class="table">
         <thead>
             <tr>
+                <th>City</th>
                 <th>Date</th>
                 <th aria-label="Temperature in Celsius">Temp. (C)</th>
-                <th aria-label="Temperature in Farenheit">Temp. (F)</th>
+                <th aria-label="Temperature in Fahrenheit">Temp. (F)</th>
                 <th>Summary</th>
             </tr>
         </thead>
@@ -30,6 +32,7 @@ else
             @foreach (var forecast in forecasts)
             {
                 <tr>
+                    <td>@forecast.CityName</td>
                     <td>@forecast.Date.ToShortDateString()</td>
                     <td>@forecast.TemperatureC</td>
                     <td>@forecast.TemperatureF</td>
@@ -41,10 +44,11 @@ else
 }
 
 @code {
-    private WeatherForecast[]? forecasts;
+    private CityWeatherForecast[]? forecasts;
+    private DateTimeOffset lastUpdated;
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await WeatherApi.GetWeatherAsync();
+        (forecasts, lastUpdated) = await WeatherApi.GetWeatherAsync();
     }
 }

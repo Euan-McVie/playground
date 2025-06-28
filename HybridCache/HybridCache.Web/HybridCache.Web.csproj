@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HybridCache.ApiModels\HybridCache.ApiModels.csproj" />
     <ProjectReference Include="..\HybridCache.ServiceDefaults\HybridCache.ServiceDefaults.csproj" />
   </ItemGroup>
 

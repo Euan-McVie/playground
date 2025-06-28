@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/HybridCache/">
+    <Project Path="HybridCache/HybridCache.ApiModels/HybridCache.ApiModels.csproj" />
     <Project Path="HybridCache/HybridCache.ApiService/HybridCache.ApiService.csproj" />
     <Project Path="HybridCache/HybridCache.AppHost/HybridCache.AppHost.csproj" />
     <Project Path="HybridCache/HybridCache.ServiceDefaults/HybridCache.ServiceDefaults.csproj" />
