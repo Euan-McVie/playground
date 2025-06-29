@@ -1,7 +1,13 @@
 @page "/weather"
+@rendermode InteractiveServer
+
 @using HybridCache.Web.Models
+@using System.Threading
+
+@implements IDisposable
 @attribute [StreamRendering(true)]
-@attribute [OutputCache(Duration = 5)]
+
+@inject PersistentComponentState ApplicationState
 
 @inject WeatherApiClient WeatherApi
 
@@ -11,13 +17,15 @@
 
 <p>This component demonstrates showing data loaded from a backend API service.</p>
 
-@if (forecasts == null)
+@if (_forecasts == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-    <p><em>Last Updated: @lastUpdated.ToString("u")</em></p>
+    <p><em>Last Updated: @_lastUpdated.ToString("u")</em></p>
+    <p><em>Time Since Last Updated: @_timeSinceLastUpdated.ToString("hh\\:mm\\:ss")</em></p>
+    <button class="btn btn-primary" disabled=@_isRefreshing @onclick="RefreshForecastsAsync">Refresh</button>
     <table class="table">
         <thead>
             <tr>
@@ -29,7 +37,7 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var forecast in forecasts)
+            @foreach (var forecast in _forecasts)
             {
                 <tr>
                     <td>@forecast.CityName</td>
@@ -44,11 +52,70 @@ else
 }
 
 @code {
-    private CityWeatherForecast[]? forecasts;
-    private DateTimeOffset lastUpdated;
+    private PersistingComponentStateSubscription _subscription;
+    private Timer? _refreshTimeSinceLastUpdatedTimer;
+    private CityWeatherForecast[]? _forecasts;
+    private DateTimeOffset _lastUpdated;
+    private TimeSpan _timeSinceLastUpdated;
+    private bool _isRefreshing;
+
+    public void Dispose()
+    {
+        _refreshTimeSinceLastUpdatedTimer?.Dispose();
+        _refreshTimeSinceLastUpdatedTimer = null;
+
+        _subscription.Dispose();
+    }
 
     protected override async Task OnInitializedAsync()
     {
-        (forecasts, lastUpdated) = await WeatherApi.GetWeatherAsync();
+        _subscription = ApplicationState.RegisterOnPersisting(PersistState);
+
+        var foundState = ApplicationState.TryTakeFromJson<State>("state", out var state);
+        if (foundState && state is not null)
+        {
+            _forecasts = state.Forecasts;
+            _lastUpdated = state.LastUpdated;
+        }
+        else
+        {
+            await RefreshForecastsAsync();
+        }
+
+        UpdateTimeSinceLastUpdated();
+
+        _refreshTimeSinceLastUpdatedTimer = new Timer(_ => RefreshTimeSinceLastUpdated(), null, 250, 250);
     }
+
+    private async Task RefreshForecastsAsync()
+    {
+        try
+        {
+            _isRefreshing = true;
+            await Task.Yield(); // Yield to allow UI to update
+            (_forecasts, _lastUpdated) = await WeatherApi.GetWeatherAsync();
+        }
+        finally
+        {
+            _isRefreshing = false;
+        }
+    }
+
+    private void RefreshTimeSinceLastUpdated()
+    {
+        UpdateTimeSinceLastUpdated();
+        _ = InvokeAsync(StateHasChanged);
+    }
+
+    private void UpdateTimeSinceLastUpdated()
+      => _timeSinceLastUpdated = DateTimeOffset.Now - _lastUpdated;
+
+    private Task PersistState()
+    {
+        ApplicationState.PersistAsJson("state", new State(_forecasts, _lastUpdated));
+        return Task.CompletedTask;
+    }
+
+    private sealed record State(CityWeatherForecast[]? Forecasts, DateTimeOffset LastUpdated);
 }
+
