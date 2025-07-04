@@ -14,7 +14,13 @@
 
 <body>
     <Routes />
-    <script src="_framework/blazor.web.js"></script>
+    <script src="_framework/blazor.web.js" autostart="false"></script>
+    <script>
+        // workaround _framework double loading issue: https://github.com/dotnet/aspnetcore/issues/51584
+        Blazor.start({
+          ssr: { disableDomPreservation: true },
+        });
+    </script>
 </body>
 
 </html>

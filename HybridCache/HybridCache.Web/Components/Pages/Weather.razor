@@ -1,6 +1,7 @@
 @page "/weather"
 @rendermode InteractiveServer
 
+@using HybridCache.Web.Clients
 @using HybridCache.Web.Models
 @using System.Threading
 
@@ -8,7 +9,6 @@
 @attribute [StreamRendering(true)]
 
 @inject PersistentComponentState ApplicationState
-
 @inject WeatherApiClient WeatherApi
 
 <PageTitle>Weather</PageTitle>
@@ -17,15 +17,24 @@
 
 <p>This component demonstrates showing data loaded from a backend API service.</p>
 
+<label><em>
+    Enable Cache:
+    <input type="checkbox" @bind="WeatherApi.IsCacheEnabled" />
+</em></label>
+
 @if (_forecasts == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-    <p><em>Last Updated: @_lastUpdated.ToString("u")</em></p>
-    <p><em>Time Since Last Updated: @_timeSinceLastUpdated.ToString("hh\\:mm\\:ss")</em></p>
-    <button class="btn btn-primary" disabled=@_isRefreshing @onclick="RefreshForecastsAsync">Refresh</button>
+    <p><em>
+        Last Updated: @_lastUpdated.ToString("u")
+        <br />
+        Time Since Last Updated: @_timeSinceLastUpdated.ToString("hh\\:mm\\:ss")
+    </em></p>
+    <button class="btn btn-primary" disabled=@_isRefreshing @onclick=RefreshForecastsAsync>Refresh</button>
+
     <table class="table">
         <thead>
             <tr>
@@ -93,7 +102,7 @@ else
         {
             _isRefreshing = true;
             await Task.Yield(); // Yield to allow UI to update
-            (_forecasts, _lastUpdated) = await WeatherApi.GetWeatherAsync();
+            (_forecasts, _lastUpdated) = await WeatherApi.GetWeatherForecastsAsync();
         }
         finally
         {

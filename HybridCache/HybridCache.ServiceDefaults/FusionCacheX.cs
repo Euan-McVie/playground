@@ -1,15 +1,19 @@
 using System;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
 using ZiggyCreatures.Caching.Fusion;
 using ZiggyCreatures.Caching.Fusion.Serialization.SystemTextJson;
 
-namespace HybridCache.Web;
+namespace HybridCache.ServiceDefaults;
 
-internal static class FusionCacheX
+public static class FusionCacheX
 {
-    internal static void AddFusionCache(this IHostApplicationBuilder builder)
+    public static void AddFusionCache(this IHostApplicationBuilder builder)
     {
+        ArgumentNullException.ThrowIfNull(builder);
+
         builder.AddRedisDistributedCache("cache");
 
         builder.Services.AddFusionCache()

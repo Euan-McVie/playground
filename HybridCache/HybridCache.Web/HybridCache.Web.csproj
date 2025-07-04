@@ -10,11 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.StackExchange.Redis.DistributedCaching" />
-    <PackageReference Include="JoeShook.ZiggyCreatures.FusionCache.Metrics.OpenTelemetry" />
-    <PackageReference Include="ZiggyCreatures.FusionCache.Backplane.StackExchangeRedis" />
-    <PackageReference Include="ZiggyCreatures.FusionCache.OpenTelemetry" />
-    <PackageReference Include="ZiggyCreatures.FusionCache.Serialization.SystemTextJson" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid" />
   </ItemGroup>
 
 </Project>

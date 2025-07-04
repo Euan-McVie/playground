@@ -1,5 +1,5 @@
 using HybridCache.ServiceDefaults;
-using HybridCache.Web;
+using HybridCache.Web.Clients;
 using HybridCache.Web.Components;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,8 +33,6 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
-
-app.UseOutputCache();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();

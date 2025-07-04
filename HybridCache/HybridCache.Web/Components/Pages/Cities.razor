@@ -1,0 +1,45 @@
+﻿@page "/cities"
+@using HybridCache.ApiModels
+@using HybridCache.Web.Clients
+@rendermode InteractiveServer
+
+@inject PersistentComponentState ApplicationState
+@inject WeatherApiClient WeatherApi
+
+<PageTitle>Cities</PageTitle>
+
+<h1>Cities</h1>
+
+<QuickGrid ItemsProvider="citiesProvider">
+    <PropertyColumn Sortable="true" Property="@(city => city.Id)" />
+    <TemplateColumn Sortable="true" Title="Name">
+        <div>
+            <label>
+                <input type="text" @bind="context.Name" @bind:after="() => updateCityAsync(context)" />
+            </label>
+        </div>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private GridItemsProvider<City>? citiesProvider;
+
+    protected override Task OnInitializedAsync()
+    {
+        citiesProvider = async req =>
+        {
+            var cities = await WeatherApi.GetCitiesAsync();
+
+            return GridItemsProviderResult.From(
+                items: cities,
+                totalItemCount: cities.Length);
+        };
+
+        return Task.CompletedTask;
+    }
+
+    private async Task updateCityAsync(City city)
+    {
+        await WeatherApi.UpdateCityAsync(city);
+    }
+}
