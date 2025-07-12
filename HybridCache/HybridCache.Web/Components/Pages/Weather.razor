@@ -4,6 +4,7 @@
 @using HybridCache.Web.Clients
 @using HybridCache.Web.Models
 @using System.Threading
+@using System.Diagnostics
 
 @implements IDisposable
 @attribute [StreamRendering(true)]
@@ -15,11 +16,13 @@
 
 <h1>Weather</h1>
 
-<p>This component demonstrates showing data loaded from a backend API service.</p>
-
 <label><em>
     Enable Cache:
     <input type="checkbox" @bind="WeatherApi.IsCacheEnabled" />
+</em></label>
+<label><em>
+    Populate On Miss:
+    <input type="checkbox" disabled=@(!WeatherApi.IsCacheEnabled) @bind="WeatherApi.PopulateCacheOnMiss" />
 </em></label>
 
 @if (_forecasts == null)
@@ -29,6 +32,8 @@
 else
 {
     <p><em>
+        Refresh Time: @_timeToRefresh
+        <br />
         Last Updated: @_lastUpdated.ToString("u")
         <br />
         Time Since Last Updated: @_timeSinceLastUpdated.ToString("hh\\:mm\\:ss")
@@ -64,6 +69,7 @@ else
     private PersistingComponentStateSubscription _subscription;
     private Timer? _refreshTimeSinceLastUpdatedTimer;
     private CityWeatherForecast[]? _forecasts;
+    private TimeSpan _timeToRefresh;
     private DateTimeOffset _lastUpdated;
     private TimeSpan _timeSinceLastUpdated;
     private bool _isRefreshing;
@@ -85,6 +91,7 @@ else
         {
             _forecasts = state.Forecasts;
             _lastUpdated = state.LastUpdated;
+            _timeToRefresh = state.TimeToRefresh;
         }
         else
         {
@@ -102,7 +109,10 @@ else
         {
             _isRefreshing = true;
             await Task.Yield(); // Yield to allow UI to update
-            (_forecasts, _lastUpdated) = await WeatherApi.GetWeatherForecastsAsync();
+            var stopWatch = Stopwatch.StartNew();
+            _forecasts = await WeatherApi.GetWeatherForecastsAsync();
+            _lastUpdated = DateTimeOffset.Now;
+            _timeToRefresh = stopWatch.Elapsed;
         }
         finally
         {
@@ -121,10 +131,10 @@ else
 
     private Task PersistState()
     {
-        ApplicationState.PersistAsJson("state", new State(_forecasts, _lastUpdated));
+        ApplicationState.PersistAsJson("state", new State(_forecasts, _lastUpdated, _timeToRefresh));
         return Task.CompletedTask;
     }
 
-    private sealed record State(CityWeatherForecast[]? Forecasts, DateTimeOffset LastUpdated);
+    private sealed record State(CityWeatherForecast[]? Forecasts, DateTimeOffset LastUpdated, TimeSpan TimeToRefresh);
 }
 

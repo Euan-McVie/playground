@@ -17,7 +17,7 @@ internal static class WeatherForecastApi
         endpoints.MapGet("/weather-forecast", async () =>
         {
             // Simulate a delay to mimic a real-world scenario.
-            await Task.Delay(1000).ConfigureAwait(false);
+            await Task.Delay(500).ConfigureAwait(false);
 
             var forecasts = Repository.Cities
                 .SelectMany(city => Enumerable

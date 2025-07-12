@@ -4,13 +4,18 @@
 @rendermode InteractiveServer
 
 @inject PersistentComponentState ApplicationState
-@inject WeatherApiClient WeatherApi
+@inject CitiesApiClient CitiesApi
 
 <PageTitle>Cities</PageTitle>
 
 <h1>Cities</h1>
 
-<QuickGrid ItemsProvider="citiesProvider">
+<label><em>
+    Clear cache on update:
+    <input type="checkbox" @bind="CitiesApi.ClearCache" />
+</em></label>
+
+<QuickGrid Items="_cities?.AsQueryable()">
     <PropertyColumn Sortable="true" Property="@(city => city.Id)" />
     <TemplateColumn Sortable="true" Title="Name">
         <div>
@@ -22,24 +27,39 @@
 </QuickGrid>
 
 @code {
-    private GridItemsProvider<City>? citiesProvider;
+    private PersistingComponentStateSubscription _subscription;
+    private City[]? _cities = null;
 
-    protected override Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
-        citiesProvider = async req =>
+               _subscription = ApplicationState.RegisterOnPersisting(PersistState);
+
+        var foundState = ApplicationState.TryTakeFromJson<State>("state", out var state);
+        if (foundState && state is not null)
         {
-            var cities = await WeatherApi.GetCitiesAsync();
+            _cities = state.Cities;
+        }
+        else
+        {
+            _cities = await CitiesApi.GetCitiesAsync();
+        }
+    }
 
-            return GridItemsProviderResult.From(
-                items: cities,
-                totalItemCount: cities.Length);
-        };
-
-        return Task.CompletedTask;
+    public void Dispose()
+    {
+        _subscription.Dispose();
     }
 
     private async Task updateCityAsync(City city)
     {
-        await WeatherApi.UpdateCityAsync(city);
+        await CitiesApi.UpdateCityAsync(city);
     }
+
+    private Task PersistState()
+    {
+        ApplicationState.PersistAsJson("state", new State(_cities));
+        return Task.CompletedTask;
+    }
+
+    private sealed record State(City[]? Cities);
 }

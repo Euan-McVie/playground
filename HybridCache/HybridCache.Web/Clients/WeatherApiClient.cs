@@ -12,28 +12,14 @@ namespace HybridCache.Web.Clients;
     Justification = "Instantiated via dependency injection")]
 internal sealed class WeatherApiClient(HttpClient httpClient, Cache cache)
 {
+    private readonly HybridCacheEntryOptions _readOnlyCacheEntryOptions
+        = new() { Flags = HybridCacheEntryFlags.DisableUnderlyingData };
+
     internal bool IsCacheEnabled { get; set; }
 
-    internal async Task<City[]> GetCitiesAsync(CancellationToken cancellationToken = default)
-        => await httpClient.GetFromJsonAsync<City[]>($"/cities/", cancellationToken)
-            .ConfigureAwait(false)
-            ?? [];
+    internal bool PopulateCacheOnMiss { get; set; }
 
-    internal async Task<City> UpdateCityAsync(City city, CancellationToken cancellationToken = default)
-    {
-        var result = await httpClient.PutAsJsonAsync($"/cities/{city.Id}", city, cancellationToken)
-            .ConfigureAwait(false);
-
-        return result switch
-        {
-            var response when response.IsSuccessStatusCode
-                => await response.Content.ReadFromJsonAsync<City>(cancellationToken).ConfigureAwait(false)
-                ?? throw new InvalidOperationException("Failed to read city from response."),
-            var response => throw new InvalidOperationException($"Failed to update city: {response.ReasonPhrase}"),
-        };
-    }
-
-    internal async Task<(CityWeatherForecast[] Forecasts, DateTimeOffset LastUpdated)> GetWeatherForecastsAsync(
+    internal async Task<CityWeatherForecast[]> GetWeatherForecastsAsync(
         int maxItems = 10,
         CancellationToken cancellationToken = default)
     {
@@ -67,7 +53,7 @@ internal sealed class WeatherApiClient(HttpClient httpClient, Cache cache)
             }))
             .ConfigureAwait(false);
 
-        return (cityForecasts, DateTimeOffset.Now);
+        return cityForecasts;
     }
 
     private async Task<City> GetCityAsync(long id, CancellationToken cancellationToken)
@@ -75,10 +61,11 @@ internal sealed class WeatherApiClient(HttpClient httpClient, Cache cache)
         if (IsCacheEnabled)
         {
             var cachedCity = await cache
-                .GetOrCreateAsync<City>(
+                .GetOrCreateAsync(
                     $"/cities/{id}",
-                    null!,
-                    new HybridCacheEntryOptions { Flags = HybridCacheEntryFlags.DisableUnderlyingData },
+                    async ct => await GetCityFromApiAsync(id, ct).ConfigureAwait(false),
+                    PopulateCacheOnMiss ? null : _readOnlyCacheEntryOptions,
+                    ["City"],
                     cancellationToken: cancellationToken)
                 .ConfigureAwait(false);
 

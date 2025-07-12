@@ -17,8 +17,12 @@ public static class FusionCacheX
         builder.AddRedisDistributedCache("cache");
 
         builder.Services.AddFusionCache()
+            .WithDefaultEntryOptions(options => options
+                .SetDuration(TimeSpan.FromSeconds(10))
+                .SetDistributedCacheDuration(TimeSpan.FromSeconds(30)))
             .WithSerializer(new FusionCacheSystemTextJsonSerializer())
             .WithRegisteredDistributedCache()
+            .WithStackExchangeRedisBackplane(options => options.Configuration = "cache")
             .AsHybridCache();
 
         builder.Services.AddOpenTelemetry()
