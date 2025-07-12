@@ -8,7 +8,10 @@
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {},
 		"ghcr.io/gvatsal60/dev-container-features/sonarlint:1": {},
 		"ghcr.io/devcontainers/features/dotnet:2": {
-			"version": "latest"
+			"version": "latest",
+      "aspNetCoreRuntimeVersions": [
+        "8.0"
+      ]
 		}
 	},
 
@@ -20,8 +23,7 @@
 	//		}
 	// }
 
-	"updateContentCommand": "sudo apt-get update && sudo apt-get install -y aspnetcore-runtime-8.0",
-  "postCreateCommand": "git pull && dotnet restore",
+	"postCreateCommand": "git pull && dotnet restore",
 	"postStartCommand": "dotnet dev-certs https --trust",
 
 	// Configure tool-specific properties.
