@@ -1,4 +1,5 @@
 using System;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OpenTelemetry.Metrics;
@@ -22,7 +23,7 @@ public static class FusionCacheX
                 .SetDistributedCacheDuration(TimeSpan.FromSeconds(30)))
             .WithSerializer(new FusionCacheSystemTextJsonSerializer())
             .WithRegisteredDistributedCache()
-            .WithStackExchangeRedisBackplane(options => options.Configuration = "cache")
+            .WithStackExchangeRedisBackplane(options => options.Configuration = builder.Configuration.GetConnectionString("cache"))
             .AsHybridCache();
 
         builder.Services.AddOpenTelemetry()
