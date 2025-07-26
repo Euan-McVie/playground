@@ -23,7 +23,7 @@
 	//		}
 	// }
 
-	"postCreateCommand": "git pull && dotnet restore",
+	"postCreateCommand": "dotnet restore",
 	"postStartCommand": "dotnet dev-certs https --trust",
 
 	// Configure tool-specific properties.

@@ -2,6 +2,8 @@ version: "0.2"
 ignorePaths: []
 dictionaryDefinitions: []
 dictionaries: []
-words: [Euan]
+words:
+  - Euan
+  - uninstantiated
 ignoreWords: []
 import: []
