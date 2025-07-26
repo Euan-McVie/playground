@@ -18,11 +18,11 @@
 
 <label><em>
     Enable Cache:
-    <input type="checkbox" @bind="WeatherApi.IsCacheEnabled" />
+    <input type="checkbox" disabled=@_isRefreshing @bind="WeatherApi.IsCacheEnabled" />
 </em></label>
 <label><em>
     Populate On Miss:
-    <input type="checkbox" disabled=@(!WeatherApi.IsCacheEnabled) @bind="WeatherApi.PopulateCacheOnMiss" />
+    <input type="checkbox" disabled=@(!WeatherApi.IsCacheEnabled || _isRefreshing) @bind="WeatherApi.PopulateCacheOnMiss" />
 </em></label>
 
 @if (_forecasts == null)
@@ -32,11 +32,13 @@
 else
 {
     <p><em>
-        Refresh Time: @_timeToRefresh
+        Refresh Time: @_timeToRefresh.ToString("mm\\:ss\\.fff")
         <br />
-        Last Updated: @_lastUpdated.ToString("u")
+        Time Since Updated: @_timeSinceUpdated.ToString("mm\\:ss")
         <br />
-        Time Since Last Updated: @_timeSinceLastUpdated.ToString("hh\\:mm\\:ss")
+        Time Since City Cached (Local): @_timeSinceCityLocalCached.ToString("mm\\:ss") (10s expiry)
+        <br />
+        Time Since City Cached (Distributed): @_timeSinceCityDistributedCached.ToString("mm\\:ss") (30s expiry)
     </em></p>
     <button class="btn btn-primary" disabled=@_isRefreshing @onclick=RefreshForecastsAsync>Refresh</button>
 
@@ -54,7 +56,7 @@ else
             @foreach (var forecast in _forecasts)
             {
                 <tr>
-                    <td>@forecast.CityName</td>
+                    <td>@forecast.City.Name</td>
                     <td>@forecast.Date.ToShortDateString()</td>
                     <td>@forecast.TemperatureC</td>
                     <td>@forecast.TemperatureF</td>
@@ -68,10 +70,14 @@ else
 @code {
     private PersistingComponentStateSubscription _subscription;
     private Timer? _refreshTimeSinceLastUpdatedTimer;
-    private CityWeatherForecast[]? _forecasts;
+    private IReadOnlyList<CityWeatherForecast>? _forecasts;
     private TimeSpan _timeToRefresh;
-    private DateTimeOffset _lastUpdated;
-    private TimeSpan _timeSinceLastUpdated;
+    private DateTimeOffset _updatedAt;
+    private DateTimeOffset _cityLocalCachedAt;
+    private DateTimeOffset _cityDistributedCachedAt;
+    private TimeSpan _timeSinceUpdated;
+    private TimeSpan _timeSinceCityLocalCached;
+    private TimeSpan _timeSinceCityDistributedCached;
     private bool _isRefreshing;
 
     public void Dispose()
@@ -90,8 +96,10 @@ else
         if (foundState && state is not null)
         {
             _forecasts = state.Forecasts;
-            _lastUpdated = state.LastUpdated;
             _timeToRefresh = state.TimeToRefresh;
+            _updatedAt = state.UpdatedAt;
+            _cityLocalCachedAt = state.CityLocalCachedAt;
+            _cityDistributedCachedAt = state.CityDistributedCachedAt;
         }
         else
         {
@@ -100,7 +108,7 @@ else
 
         UpdateTimeSinceLastUpdated();
 
-        _refreshTimeSinceLastUpdatedTimer = new Timer(_ => RefreshTimeSinceLastUpdated(), null, 250, 250);
+        _refreshTimeSinceLastUpdatedTimer = new Timer(_ => RefreshTimeSinceLastUpdated(), null, 1000, 1000);
     }
 
     private async Task RefreshForecastsAsync()
@@ -110,9 +118,12 @@ else
             _isRefreshing = true;
             await Task.Yield(); // Yield to allow UI to update
             var stopWatch = Stopwatch.StartNew();
-            _forecasts = await WeatherApi.GetWeatherForecastsAsync();
-            _lastUpdated = DateTimeOffset.Now;
+            var response = await WeatherApi.GetWeatherForecastsAsync();
             _timeToRefresh = stopWatch.Elapsed;
+            _updatedAt = DateTimeOffset.Now;
+            _forecasts = response.Forecasts;
+            _cityLocalCachedAt = response.CityLocalCachedAt;
+            _cityDistributedCachedAt = response.CityDistributedCachedAt;
         }
         finally
         {
@@ -127,14 +138,31 @@ else
     }
 
     private void UpdateTimeSinceLastUpdated()
-      => _timeSinceLastUpdated = DateTimeOffset.Now - _lastUpdated;
+    {
+        var now = DateTimeOffset.Now;
+        _timeSinceUpdated = now - _updatedAt;
+        _timeSinceCityLocalCached = now - _cityLocalCachedAt;
+        _timeSinceCityDistributedCached = now - _cityDistributedCachedAt;
+    }
 
     private Task PersistState()
     {
-        ApplicationState.PersistAsJson("state", new State(_forecasts, _lastUpdated, _timeToRefresh));
+        ApplicationState.PersistAsJson(
+            "state",
+            new State(
+                _forecasts,
+                _timeToRefresh,
+                _updatedAt,
+                _cityLocalCachedAt,
+                _cityDistributedCachedAt));
         return Task.CompletedTask;
     }
 
-    private sealed record State(CityWeatherForecast[]? Forecasts, DateTimeOffset LastUpdated, TimeSpan TimeToRefresh);
+    private sealed record State(
+        IReadOnlyList<CityWeatherForecast>? Forecasts,
+        TimeSpan TimeToRefresh,
+        DateTimeOffset UpdatedAt,
+        DateTimeOffset CityLocalCachedAt,
+        DateTimeOffset CityDistributedCachedAt);
 }
 

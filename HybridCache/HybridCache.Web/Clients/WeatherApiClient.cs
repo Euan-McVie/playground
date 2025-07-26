@@ -19,7 +19,7 @@ internal sealed class WeatherApiClient(HttpClient httpClient, Cache cache)
 
     internal bool PopulateCacheOnMiss { get; set; }
 
-    internal async Task<CityWeatherForecast[]> GetWeatherForecastsAsync(
+    internal async Task<CityWeatherForecasts> GetWeatherForecastsAsync(
         int maxItems = 10,
         CancellationToken cancellationToken = default)
     {
@@ -45,7 +45,7 @@ internal sealed class WeatherApiClient(HttpClient httpClient, Cache cache)
                     .ConfigureAwait(false);
 
                 return new CityWeatherForecast(
-                    city.Name,
+                    city,
                     forecast.Date,
                     forecast.TemperatureC,
                     forecast.TemperatureF,
@@ -53,10 +53,10 @@ internal sealed class WeatherApiClient(HttpClient httpClient, Cache cache)
             }))
             .ConfigureAwait(false);
 
-        return cityForecasts;
+        return new CityWeatherForecasts(cityForecasts);
     }
 
-    private async Task<City> GetCityAsync(long id, CancellationToken cancellationToken)
+    private async Task<CachedCity> GetCityAsync(long id, CancellationToken cancellationToken)
     {
         if (IsCacheEnabled)
         {
@@ -79,8 +79,12 @@ internal sealed class WeatherApiClient(HttpClient httpClient, Cache cache)
             .ConfigureAwait(false);
     }
 
-    private async Task<City> GetCityFromApiAsync(long id, CancellationToken cancellationToken)
-        => await httpClient.GetFromJsonAsync<City>($"/cities/{id}", cancellationToken)
-            .ConfigureAwait(false)
-            ?? new City(id, "Unknown");
+    private async Task<CachedCity> GetCityFromApiAsync(long id, CancellationToken cancellationToken)
+    {
+        var city = await httpClient.GetFromJsonAsync<City>($"/cities/{id}", cancellationToken)
+                .ConfigureAwait(false);
+        return city is not null
+            ? new CachedCity(id, city.Name)
+            : new CachedCity(id, "Unknown");
+    }
 }
