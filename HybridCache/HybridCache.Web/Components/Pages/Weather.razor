@@ -17,12 +17,17 @@
 <h1>Weather</h1>
 
 <label><em>
-    Enable Cache:
-    <input type="checkbox" disabled=@_isRefreshing @bind="WeatherApi.IsCacheEnabled" />
+    Enable Client Cache:
+    <input type="checkbox" disabled=@_isRefreshing @bind="WeatherApi.IsClientCacheEnabled" />
 </em></label>
 <label><em>
-    Populate On Miss:
-    <input type="checkbox" disabled=@(!WeatherApi.IsCacheEnabled || _isRefreshing) @bind="WeatherApi.PopulateCacheOnMiss" />
+    Populate Client Cache On Miss:
+    <input type="checkbox" disabled=@(!WeatherApi.IsClientCacheEnabled || _isRefreshing) @bind="WeatherApi.PopulateCacheOnMiss" />
+</em></label>
+<br/>
+<label><em>
+    Enable Server Cache:
+    <input type="checkbox" disabled=@_isRefreshing @bind="WeatherApi.IsServerCacheEnabled" />
 </em></label>
 
 @if (_forecasts == null)

@@ -9,6 +9,8 @@ builder.AddFusionCache();
 
 // Add services to the container.
 builder.Services.AddProblemDetails();
+builder.Services.AddSingleton<CityRepository>();
+builder.Services.AddSingleton<WeatherForecastRepository>();
 
 var app = builder.Build();
 

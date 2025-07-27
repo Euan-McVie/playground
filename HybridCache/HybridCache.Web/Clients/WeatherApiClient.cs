@@ -15,7 +15,9 @@ internal sealed class WeatherApiClient(HttpClient httpClient, Cache cache)
     private readonly HybridCacheEntryOptions _readOnlyCacheEntryOptions
         = new() { Flags = HybridCacheEntryFlags.DisableUnderlyingData };
 
-    internal bool IsCacheEnabled { get; set; }
+    internal bool IsClientCacheEnabled { get; set; }
+
+    internal bool IsServerCacheEnabled { get; set; }
 
     internal bool PopulateCacheOnMiss { get; set; }
 
@@ -58,7 +60,7 @@ internal sealed class WeatherApiClient(HttpClient httpClient, Cache cache)
 
     private async Task<CachedCity> GetCityAsync(long id, CancellationToken cancellationToken)
     {
-        if (IsCacheEnabled)
+        if (IsClientCacheEnabled)
         {
             var cachedCity = await cache
                 .GetOrCreateAsync(
@@ -81,7 +83,7 @@ internal sealed class WeatherApiClient(HttpClient httpClient, Cache cache)
 
     private async Task<CachedCity> GetCityFromApiAsync(long id, CancellationToken cancellationToken)
     {
-        var city = await httpClient.GetFromJsonAsync<City>($"/cities/{id}", cancellationToken)
+        var city = await httpClient.GetFromJsonAsync<City>($"/cities/{id}?useCache={IsServerCacheEnabled}", cancellationToken)
                 .ConfigureAwait(false);
         return city is not null
             ? new CachedCity(id, city.Name)
