@@ -23,9 +23,11 @@ public class CollectionExpressions
             .ToList();
     }
 
+#if NET8_0_OR_GREATER
     [Benchmark]
     public IReadOnlyList<int> WhereCollectionExpression()
     {
         return [.. _testData.Where(x => x % 2 == 0)];
     }
+#endif
 }
