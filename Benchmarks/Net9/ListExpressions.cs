@@ -1,4 +1,4 @@
-﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Attributes;
 
 namespace Benchmarks.Net9;
 
@@ -12,25 +12,18 @@ public class ListExpressions
     public static string? TestString { get; set; }
 
     [Benchmark(Baseline = true)]
-    public bool IfStyleChecks()
-    {
-        return !string.IsNullOrEmpty(TestString)
-            && TestString[^1] != ' '
-            && TestString[^1] != RightSeparator;
-    }
+    public bool IfStyleChecks() =>
+        !string.IsNullOrEmpty(TestString)
+        && TestString[^1] != ' '
+        && TestString[^1] != RightSeparator;
 
     [Benchmark]
-    public bool SwitchStyleChecks()
+    public bool SwitchStyleChecks() => TestString switch
     {
-        return TestString switch
-        {
-            null => false,
-            "" => false,
-#if NET8_0_OR_GREATER
-            [.., ' '] => false,
-            [.., var lastChar] when lastChar == RightSeparator => false,
-#endif
-            _ => true,
-        };
-    }
+        null => false,
+        "" => false,
+        [.., ' '] => false,
+        [.., var lastChar] when lastChar == RightSeparator => false,
+        _ => true,
+    };
 }

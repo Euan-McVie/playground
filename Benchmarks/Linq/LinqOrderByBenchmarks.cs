@@ -14,19 +14,13 @@ public class LinqOrderByBenchmarks
     private readonly Consumer _consumer = new();
 
     [Benchmark(Baseline = true)]
-    public void OrderByValueTuple()
-    {
-        _testData
-            .OrderBy(x => (x.A, x.B))
-            .Consume(_consumer);
-    }
+    public void OrderByValueTuple() => _testData
+        .OrderBy(x => (x.A, x.B))
+        .Consume(_consumer);
 
     [Benchmark]
-    public void OrderByThenBy()
-    {
-        _testData
-            .OrderBy(x => x.A)
-            .ThenBy(x => x.B)
-            .Consume(_consumer);
-    }
+    public void OrderByThenBy() => _testData
+        .OrderBy(x => x.A)
+        .ThenBy(x => x.B)
+        .Consume(_consumer);
 }

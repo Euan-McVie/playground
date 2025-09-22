@@ -163,6 +163,8 @@ dotnet_diagnostic.CS1591.severity = none
 dotnet_code_quality.CA1812.severity = none
 # CA1822: Mark members as static - Benchmark.NET members are public by design
 dotnet_diagnostic.CA1822.severity = none
+# IDE0305: Simplify collection initialization
+dotnet_diagnostic.IDE0305.severity = suggestion
 # SA0001: XML comment analysis is disabled
 dotnet_diagnostic.SA0001.severity = none
 # SA1101: Prefix local calls with this - Superceded by dotnet_style_qualification_for_ rules

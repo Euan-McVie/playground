@@ -1,4 +1,4 @@
-﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Attributes;
 
 namespace Benchmarks.Net9;
 
@@ -10,10 +10,8 @@ public class StackAlloc
     [Benchmark]
     public int ReturnValue() => new MyObj(42).Value;
 
-    private sealed class MyObj
+    private sealed class MyObj(int value)
     {
-        public MyObj(int value) => Value = value;
-
-        public int Value { get; }
+        public int Value { get; } = value;
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 using BenchmarkDotNet.Attributes;
 
 namespace Benchmarks.Collections;
@@ -19,45 +19,27 @@ public class ListVsHashSet
     public void SetupData()
     {
         _list = Enumerable.Range(1, ItemCount).ToList();
-        _first = _list.First();
-        _last = _list.Last();
+        _first = _list[0];
+        _last = _list[_list.Count - 1];
 
         _hashSet = _list.ToHashSet();
     }
 
     // [Benchmark]
-    public bool ListContainsFirst()
-    {
-        return _list.Contains(_first);
-    }
+    public bool ListContainsFirst() => _list.Contains(_first);
 
     // [Benchmark]
-    public bool HashSetContainsFirst()
-    {
-        return _hashSet.Contains(_first);
-    }
+    public bool HashSetContainsFirst() => _hashSet.Contains(_first);
 
     [Benchmark(Baseline = true)]
-    public bool ListContainsLast()
-    {
-        return _list.Contains(_last);
-    }
+    public bool ListContainsLast() => _list.Contains(_last);
 
     [Benchmark]
-    public bool HashSetContainsLast()
-    {
-        return _hashSet.Contains(_last);
-    }
+    public bool HashSetContainsLast() => _hashSet.Contains(_last);
 
     [Benchmark]
-    public bool ListDoesNotContain()
-    {
-        return _list.Contains(_notPresent);
-    }
+    public bool ListDoesNotContain() => _list.Contains(_notPresent);
 
     [Benchmark]
-    public bool HashSetDoesNotContain()
-    {
-        return _hashSet.Contains(_notPresent);
-    }
+    public bool HashSetDoesNotContain() => _hashSet.Contains(_notPresent);
 }

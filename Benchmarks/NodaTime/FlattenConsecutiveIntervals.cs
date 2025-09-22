@@ -1,7 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Engines;
-using BenchmarkDotNet.Jobs;
 using Libraries.NodaTime;
 using NodaTime;
 
@@ -9,9 +8,6 @@ namespace Benchmarks.NodaTime;
 
 [SuppressMessage("Security", "CA5394:Do not use insecure randomness", Justification = "Security not required")]
 [MemoryDiagnoser]
-[SimpleJob(RuntimeMoniker.Net60)]
-[SimpleJob(RuntimeMoniker.Net80)]
-[SimpleJob(RuntimeMoniker.Net90)]
 public class FlattenConsecutiveIntervals
 {
     private static readonly Instant s_now = SystemClock.Instance.GetCurrentInstant();
@@ -24,11 +20,7 @@ public class FlattenConsecutiveIntervals
     [ParamsSource(nameof(GenSeed))]
     public static int Seed { get; set; }
 
-#if NET8_0_OR_GREATER
     public static IEnumerable<int> GenSeed => [Random.Shared.Next()];
-#else
-    public static IEnumerable<int> GenSeed => new[] { new Random().Next() };
-#endif
 
     [GlobalSetup]
     public void SetupData()

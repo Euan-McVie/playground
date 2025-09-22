@@ -1,4 +1,4 @@
-﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Engines;
 
 namespace Benchmarks.Linq;
@@ -14,18 +14,12 @@ public class LinqGroupByBenchmarks
     private readonly Consumer _consumer = new();
 
     [Benchmark]
-    public void GroupByValueTuple()
-    {
-        _testData
-            .GroupBy(x => (x.A, x.B))
-            .Consume(_consumer);
-    }
+    public void GroupByValueTuple() => _testData
+        .GroupBy(x => (x.A, x.B))
+        .Consume(_consumer);
 
     [Benchmark]
-    public void GroupByAnonymous()
-    {
-        _testData
-            .GroupBy(x => new { x.A, x.B })
-            .Consume(_consumer);
-    }
+    public void GroupByAnonymous() => _testData
+        .GroupBy(x => new { x.A, x.B })
+        .Consume(_consumer);
 }
